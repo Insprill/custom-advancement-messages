@@ -1,0 +1,11 @@
+name: CustomAdvancementMessages
+main: net.insprill.cam.CAM
+version: 1.0.0.0-ALPHA-2.0
+softdepend:
+  - Vault
+  - PlaceholderAPI
+commands:
+  cam:
+    aliases: [ customadvancementmessages ]
+    permission: cam.use
+    description: Base CAM command.
