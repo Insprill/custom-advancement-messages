@@ -1,3 +1,7 @@
+# If true, message won't be sent if the date the last needed criteria cannot be found.
+Dont-Send-If-Possibly-Granted-Before: false
+# If enabled, messages will only be sent within Range
+# blocks of the player that got the advancement
 Radius:
   Enabled: false
   Range: 100.0
