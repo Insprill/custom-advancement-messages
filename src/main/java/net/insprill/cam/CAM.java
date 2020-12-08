@@ -6,12 +6,12 @@ import net.insprill.cam.listeners.AdvancementEvent;
 import net.insprill.cam.metrics.Metrics;
 import net.insprill.cam.utils.CF;
 import net.insprill.cam.utils.StopWatch;
+import net.insprill.cam.utils.UpdateChecker;
 import net.milkbowl.vault.chat.Chat;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 import org.bukkit.advancement.Advancement;
-import org.bukkit.configuration.ConfigurationOptions;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -60,6 +60,7 @@ public class CAM extends JavaPlugin {
         new Commands(this);
         startingPluginTimer.stop();
         CF.sendConsoleMessage("&3CAM Started! &6" + startingPluginTimer.getElapsedTime().toMillis() + "ms");
+        UpdateChecker.getInstance().sendUpdateMessage(Bukkit.getConsoleSender());
     }
 
     @Override
