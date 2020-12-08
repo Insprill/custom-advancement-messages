@@ -1,10 +1,9 @@
 package net.insprill.cam.commands;
 
 import net.insprill.cam.CAM;
-import net.insprill.cam.utils.CF;
-import net.insprill.cam.utils.Lang;
-import net.insprill.cam.utils.StopWatch;
+import net.insprill.cam.utils.*;
 import org.apache.commons.lang.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -66,6 +65,45 @@ public class Commands implements CommandExecutor {
                 CF.sendMessage(sender, "&aCould not find that advancement in the file! Please run \"/cam reload\" to add any missing advancements.");
             }
 
+        }
+        else if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("ver")) {
+            if (!sender.hasPermission("cam.command.version")) {
+                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
+                return true;
+            }
+            if (args.length == 1) {
+                sender.sendMessage(CF.consoleFormat("&e&l==============================="));
+                sender.sendMessage(CF.consoleFormat("&2CAM: &a" + plugin.getDescription().getVersion()));
+                sender.sendMessage(CF.consoleFormat("&2Server: &a" + Bukkit.getVersion()));
+
+                if (plugin.hasVault)
+                    sender.sendMessage(CF.consoleFormat("&2Vault Version: &a" + Bukkit.getPluginManager().getPlugin("Vault").getDescription().getVersion()));
+                else
+                    sender.sendMessage(CF.consoleFormat("&2Vault Version: &a" + "N/A"));
+
+                if (plugin.hasPapi)
+                    sender.sendMessage(CF.consoleFormat("&2PAPI Version: &a" + Bukkit.getPluginManager().getPlugin("PlaceholderAPI").getDescription().getVersion()));
+                else
+                    sender.sendMessage(CF.consoleFormat("&2PAPI Version: &a" + "N/A"));
+
+                sender.sendMessage(CF.consoleFormat("&2Java: &a" + System.getProperty("java.version")));
+                sender.sendMessage(CF.consoleFormat("&2OS: &a" + System.getProperty("os.name")));
+                sender.sendMessage(CF.consoleFormat("&e&l==============================="));
+
+                UpdateChecker.getInstance().sendUpdateMessage(sender);
+
+            }
+
+        }
+        else if (args[0].equalsIgnoreCase("debug")) {
+            if (!sender.hasPermission("cam.command.debug")) {
+                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
+                return true;
+            }
+            Bukkit.getScheduler().runTaskAsynchronously(CAM.getInstance(), () -> {
+                CF.sendMessage(sender, "&2Creating debug link, please wait...");
+                CF.sendMessage(sender, "&a" + Debug.getInstance().createDebugLink());
+            });
         }
         else {
             CF.sendMessage(sender, "&cUnknown command! Type \"/cam help\" for help.");
