@@ -20,7 +20,7 @@ public class Debug {
         return instance;
     }
 
-    public String createDebugLink(String URL) {
+    public String createDebugLink() {
         StringBuilder builder = new StringBuilder();
 
         builder.append("CAM: ").append(CAM.getInstance().getDescription().getVersion()).append("\n");
