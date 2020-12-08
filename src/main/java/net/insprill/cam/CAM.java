@@ -62,7 +62,9 @@ public class CAM extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
-        if (Bukkit.getVersion().contains("spigot"))
+
+        String serverVersion = Bukkit.getVersion().toLowerCase();
+        if (serverVersion.contains("spigot"))
             JvmChecker.checkJvm();
 
         hasVault = Bukkit.getPluginManager().isPluginEnabled("Vault");
