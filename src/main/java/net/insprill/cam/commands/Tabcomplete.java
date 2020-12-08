@@ -1,6 +1,5 @@
 package net.insprill.cam.commands;
 
-import net.insprill.cam.utils.CF;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.command.Command;
@@ -24,6 +23,12 @@ public class Tabcomplete implements TabCompleter {
             }
             if (sender.hasPermission("cam.command.set")) {
                 args.add("set");
+            }
+            if (sender.hasPermission("cam.command.version")) {
+                args.add("version");
+            }
+            if (sender.hasPermission("cam.command.debug")) {
+                args.add("debug");
             }
             return match(args, commandArgs[0]);
 
