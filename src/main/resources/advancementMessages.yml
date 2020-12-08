@@ -1,1 +1,14 @@
+# Here you find all advancements.
+# When the server starts, or when the plugin reload, this list is updated so it should always
+# include every advancement on the server.
+# All message support JSON in the the '/tellraw' command format. You can create JSON messages at https://minecraft.tools/en/tellraw.php.
+# All messages also support HEX colors in the format '{#123456}'.
+# All built in placeholders are the following:
+#   [playerDisplayName] - Display name of player.
+#   [playerName] - Name of player.
+#   [prefix] - Players prefix (if vault is installed)
+#   [suffix] - Players suffix (if vault is installed)
+#   [adv] - Name of advancement.
+# All messages also support PlaceholderAPI.
+# If you want a message to be centered in the chatbot, put '<center>' at the beginning of the message.
 default: "&2[playerName] &ahas gotten the advancement &2[adv]&a!"
