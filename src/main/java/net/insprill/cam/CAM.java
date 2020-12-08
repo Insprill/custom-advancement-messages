@@ -5,6 +5,7 @@ import net.insprill.cam.filemanagers.YamlManager;
 import net.insprill.cam.listeners.AdvancementEvent;
 import net.insprill.cam.metrics.Metrics;
 import net.insprill.cam.utils.CF;
+import net.insprill.cam.utils.JvmChecker;
 import net.insprill.cam.utils.StopWatch;
 import net.insprill.cam.utils.UpdateChecker;
 import net.milkbowl.vault.chat.Chat;
@@ -21,6 +22,7 @@ public class CAM extends JavaPlugin {
 
     static CAM instance;
     final Metrics metrics = new Metrics(this, 0);
+    public int minecraftVersion = 0;
     public YamlManager advancementsFile;
     public YamlManager langFile;
     public YamlManager configFile;
@@ -40,6 +42,24 @@ public class CAM extends JavaPlugin {
         instance = this;
         StopWatch startingPluginTimer = new StopWatch();
         startingPluginTimer.start();
+
+        String a = Bukkit.getServer().getClass().getPackage().getName();
+        String mcv = a.substring(a.lastIndexOf('.') + 2);
+        mcv = mcv.substring(0, mcv.indexOf('R') - 1);
+        minecraftVersion = Integer.parseInt(mcv.replace("_", ""));
+
+        if (minecraftVersion < 1_12) {
+            CF.sendConsoleMessage("&cCAM is only compatible with Minecraft 1.12+. Please upgrade to at least 1.12 to use CAM.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+        if (JvmChecker.getJvmVersion() < 8) {
+            CF.sendConsoleMessage("&cCAM is only compatible with Java 8 and up. Please upgrade to Java 8 or better yet, Java 11 to use CAM.");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
+        if (Bukkit.getVersion().contains("spigot"))
+            JvmChecker.checkJvm();
         advancementsFile = new YamlManager("advancementMessages.yml");
         langFile = new YamlManager("lang.yml");
         configFile = new YamlManager("config.yml");
