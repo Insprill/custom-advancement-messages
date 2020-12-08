@@ -3,6 +3,7 @@ package net.insprill.cam;
 import net.insprill.cam.commands.Commands;
 import net.insprill.cam.filemanagers.YamlManager;
 import net.insprill.cam.listeners.AdvancementEvent;
+import net.insprill.cam.metrics.Metrics;
 import net.insprill.cam.utils.CF;
 import net.insprill.cam.utils.StopWatch;
 import net.milkbowl.vault.chat.Chat;
@@ -19,6 +20,7 @@ import java.util.Iterator;
 public class CAM extends JavaPlugin {
 
     static CAM instance;
+    final Metrics metrics = new Metrics(this, 0);
     public YamlManager advancementsFile;
     public YamlManager langFile;
     public YamlManager configFile;
@@ -29,6 +31,8 @@ public class CAM extends JavaPlugin {
     public static CAM getInstance() {
         return instance;
     }
+
+    //TODO CHANGE METRICS ID BEFORE COMPILING
 
     @Override
     public void onEnable() {
