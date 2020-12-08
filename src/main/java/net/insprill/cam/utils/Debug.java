@@ -42,9 +42,9 @@ public class Debug {
             URL url = new URL("https://hastebin.com/documents");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+            http.setConnectTimeout(5 * 1000);
+            http.setReadTimeout(5 * 1000);
             http.setDoOutput(true);
-            http.setConnectTimeout(10 * 1000);
-            http.setReadTimeout(10 * 1000);
             http.getOutputStream().write(builder.toString().getBytes(Charsets.UTF_8));
             JsonObject object = new Gson().fromJson(new InputStreamReader(http.getInputStream(), Charsets.UTF_8), JsonObject.class);
             return "https://hastebin.com/" + object.get("key").getAsString() + ".yaml";
