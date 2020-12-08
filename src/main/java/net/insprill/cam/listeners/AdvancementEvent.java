@@ -26,7 +26,11 @@ public class AdvancementEvent implements Listener {
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
-        if (player.getAdvancementProgress(e.getAdvancement()).isDone()) return;
+        List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria());
+        if (criteria.isEmpty()) return;
+        if (player.getAdvancementProgress(e.getAdvancement()).getDateAwarded(criteria.get(criteria.size() - 1)
+        ).getTime() < System.currentTimeMillis() - 10 * 1000)
+            return;
         String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
         if (message.equals("default"))
             message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
