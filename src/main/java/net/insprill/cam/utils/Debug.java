@@ -41,7 +41,7 @@ public class Debug {
         try {
             URL url = new URL("https://hastebin.com/documents");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
-            http.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
+            http.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
             http.setConnectTimeout(5 * 1000);
             http.setReadTimeout(5 * 1000);
             http.setDoOutput(true);
