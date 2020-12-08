@@ -43,11 +43,12 @@ public class CAM extends JavaPlugin {
         advancementsFile = new YamlManager("advancementMessages.yml");
         langFile = new YamlManager("lang.yml");
         configFile = new YamlManager("config.yml");
-        setupChat();
 
         hasVault = Bukkit.getPluginManager().isPluginEnabled("Vault");
         hasPapi = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
 
+        if (hasVault)
+            setupChat();
 
         StopWatch initializeAdvancementsTimer = new StopWatch();
         initializeAdvancementsTimer.start();
