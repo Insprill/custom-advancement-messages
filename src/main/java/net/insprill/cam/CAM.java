@@ -43,6 +43,10 @@ public class CAM extends JavaPlugin {
         StopWatch startingPluginTimer = new StopWatch();
         startingPluginTimer.start();
 
+        advancementsFile = new YamlManager("advancementMessages.yml");
+        langFile = new YamlManager("lang.yml");
+        configFile = new YamlManager("config.yml");
+
         String a = Bukkit.getServer().getClass().getPackage().getName();
         String mcv = a.substring(a.lastIndexOf('.') + 2);
         mcv = mcv.substring(0, mcv.indexOf('R') - 1);
@@ -60,9 +64,6 @@ public class CAM extends JavaPlugin {
         }
         if (Bukkit.getVersion().contains("spigot"))
             JvmChecker.checkJvm();
-        advancementsFile = new YamlManager("advancementMessages.yml");
-        langFile = new YamlManager("lang.yml");
-        configFile = new YamlManager("config.yml");
 
         hasVault = Bukkit.getPluginManager().isPluginEnabled("Vault");
         hasPapi = Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
