@@ -18,6 +18,9 @@ public class Tabcomplete implements TabCompleter {
         List<String> args = new ArrayList<>();
 
         if (commandArgs.length == 1) {
+            if (sender.hasPermission("cam.command.help")) {
+                args.add("help");
+            }
             if (sender.hasPermission("cam.command.reload")) {
                 args.add("reload");
             }
