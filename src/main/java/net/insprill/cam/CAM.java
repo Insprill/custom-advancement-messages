@@ -75,8 +75,12 @@ public class CAM extends JavaPlugin {
     }
 
     void initializeAdvancements() {
-        for (World world : getServer().getWorlds())
-            world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        for (World world : getServer().getWorlds()) {
+            if (Bukkit.getVersion().contains("1.12"))
+                world.setGameRuleValue("ANNOUNCE_ADVANCEMENTS", "false");
+            else
+                world.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false);
+        }
         Iterator<Advancement> advancementIterator = getServer().advancementIterator();
         while (advancementIterator.hasNext()) {
             Advancement advancement = advancementIterator.next();
