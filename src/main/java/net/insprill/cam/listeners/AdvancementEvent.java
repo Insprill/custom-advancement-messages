@@ -26,8 +26,10 @@ public class AdvancementEvent implements Listener {
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
+        if (player.getAdvancementProgress(e.getAdvancement()).isDone()) return;
         String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
-        if (message.equals("default")) message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
+        if (message.equals("default"))
+            message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
 
         String advName = e.getAdvancement().getKey().toString(); // Advancement name from key.
         advName = advName.substring(advName.lastIndexOf('/')); // Only get everything after the last '/'.
