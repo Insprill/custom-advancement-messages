@@ -51,6 +51,9 @@ public class AdvancementEvent implements Listener {
                 sendMessage(p, message); // Send the message.
             }
         }
+        if (plugin.configFile.getBoolean("Send-Message-To-Console", true)) {
+            CF.sendConsoleMessage(CF.setPlaceholders(player, plugin.advancementsFile.getString("default"), advName));
+        }
     }
 
     void sendMessage(Player player, String message) {

@@ -1,5 +1,7 @@
 # If true, message won't be sent if the date the last needed criteria cannot be found.
 Dont-Send-If-Possibly-Granted-Before: false
+# Whether messages should be send to console.
+Send-Message-To-Console: true
 # If enabled, messages will only be sent within Range
 # blocks of the player that got the advancement
 Radius:
