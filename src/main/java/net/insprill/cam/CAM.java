@@ -84,6 +84,10 @@ public class CAM extends JavaPlugin {
         startingPluginTimer.stop();
         CF.sendConsoleMessage("&3CAM Started! &6" + startingPluginTimer.getElapsedTime().toMillis() + "ms");
         UpdateChecker.getInstance().sendUpdateMessage(Bukkit.getConsoleSender());
+
+        // bStats
+        String radius_messages = (configFile.getBoolean("Radius.Enabled", false)) ? "Enabled" : "Disabled";
+        metrics.addCustomChart(new Metrics.SimplePie("radius_messages", () -> radius_messages));
     }
 
     @Override
