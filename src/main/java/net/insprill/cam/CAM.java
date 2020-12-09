@@ -101,6 +101,7 @@ public class CAM extends JavaPlugin {
             chat = chatProvider.getProvider();
     }
 
+    @SuppressWarnings("deprecation")
     void initializeAdvancements() {
         for (World world : getServer().getWorlds()) {
             if (Bukkit.getVersion().contains("1.12"))
