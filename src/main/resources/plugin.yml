@@ -9,3 +9,27 @@ commands:
     aliases: [ customadvancementmessages ]
     permission: cam.use
     description: Base CAM command.
+
+permissions:
+  cam.*:
+    description: Gives access to all CAM commands
+    children:
+      cam.command.help: true
+      cam.command.version: true
+      cam.command.debug: true
+      cam.command.reload: true
+  cam.command.*:
+    description: Gives access to all CAM commands
+    children:
+      cam.command.help: true
+      cam.command.version: true
+      cam.command.debug: true
+      cam.command.reload: true
+  cam.command.help:
+    description: Gives access to "/cam help"
+  cam.command.version:
+    description: Gives access to "/cam version"
+  cam.command.debug:
+    description: Gives access to "/cam debug"
+  cam.command.reload:
+    description: Gives access to "/cam reload"
