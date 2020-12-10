@@ -27,7 +27,7 @@ public class Commands implements CommandExecutor {
         plugin.getCommand("cam").setTabCompleter(new Tabcomplete());
     }
 
-
+    @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
 
         if (args.length == 0) {
