@@ -1,10 +1,12 @@
 package net.insprill.cam.commands;
 
+import net.insprill.cam.CAM;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -27,6 +29,10 @@ public class Tabcomplete implements TabCompleter {
             if (sender.hasPermission("cam.command.set")) {
                 args.add("set");
             }
+            if (CAM.getInstance().dataFile != null)
+                if (sender.hasPermission("cam.command.revoke")) {
+                    args.add("revoke");
+                }
             if (sender.hasPermission("cam.command.version")) {
                 args.add("version");
             }
@@ -35,15 +41,42 @@ public class Tabcomplete implements TabCompleter {
             }
             return match(args, commandArgs[0]);
 
-        } else if (commandArgs.length == 2) {
-            if (sender.hasPermission("cam.command.set")) {
-                Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
-                while (advancementIterator.hasNext()) {
-                    Advancement advancement = advancementIterator.next();
-                    args.add(advancement.getKey().toString());
+        }
+        else if (commandArgs.length == 2) {
+            if (commandArgs[0].equalsIgnoreCase("set")) {
+                if (sender.hasPermission("cam.command.set")) {
+                    Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
+                    while (advancementIterator.hasNext()) {
+                        Advancement advancement = advancementIterator.next();
+                        args.add(advancement.getKey().toString());
+                    }
+                }
+            }
+            else if (commandArgs[0].equalsIgnoreCase("revoke")) {
+                if (CAM.getInstance().dataFile != null) {
+                    if (sender.hasPermission("cam.command.revoke")) {
+                        for (Player player : Bukkit.getOnlinePlayers()) {
+                            args.add((player.getName()));
+                        }
+                    }
                 }
             }
             return match(args, commandArgs[1]);
+        }
+        else if (commandArgs.length == 3) {
+            if (commandArgs[0].equalsIgnoreCase("revoke")) {
+                if (CAM.getInstance().dataFile != null) {
+                    if (sender.hasPermission("cam.command.revoke")) {
+                        args.add("everything");
+                        Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
+                        while (advancementIterator.hasNext()) {
+                            Advancement advancement = advancementIterator.next();
+                            args.add(advancement.getKey().toString());
+                        }
+                    }
+                }
+            }
+            return match(args, commandArgs[2]);
         }
 
         return Collections.emptyList();
