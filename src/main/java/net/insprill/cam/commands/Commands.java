@@ -11,14 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class Commands implements CommandExecutor {
 
-    private final String helpPage1 =
-            "&e&l========< &c&lCAM Help &e&l>========" + "\n" +
-                    "&a&l/cam help &7-> &2Opens help page" + "\n" +
-                    "&a&l/cam reload &7-> &2Reloads all config files." + "\n" +
-                    "&a&l/cam version &7-> &2Shows versions for various things." + "\n" +
-                    "&a&l/cam debug &7-> &2Create debug link. Only used for for support if you have any issues." + "\n" +
-                    "&e&l==========================";
-
     private final CAM plugin;
 
     public Commands(CAM plugin) {
@@ -40,6 +32,12 @@ public class Commands implements CommandExecutor {
                 sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
                 return true;
             }
+            String helpPage1 = "&e&l========< &c&lCAM Help &e&l>========" + "\n" +
+                    "&a&l/cam help &7-> &2Opens help page" + "\n" +
+                    "&a&l/cam reload &7-> &2Reloads all config files." + "\n" +
+                    "&a&l/cam version &7-> &2Shows versions for various things." + "\n" +
+                    "&a&l/cam debug &7-> &2Create debug link. Only used for for support if you have any issues." + "\n" +
+                    "&e&l==========================";
             if (args.length == 1) {
                 sender.sendMessage(CF.format(helpPage1));
             }
