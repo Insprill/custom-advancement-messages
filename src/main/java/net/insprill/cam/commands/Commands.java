@@ -86,7 +86,7 @@ public class Commands implements CommandExecutor {
                 CF.sendMessage(sender, "&aAdvancement successfully set!");
             }
             else {
-                CF.sendMessage(sender, "&aCould not find that advancement in the file! Please run \"/cam reload\" to add any missing advancements.");
+                CF.sendMessage(sender, Lang.get("Advancement-Not-Found"));
             }
 
         }
@@ -168,7 +168,7 @@ public class Commands implements CommandExecutor {
 
         // Doesn't match any commands.
         else {
-            CF.sendMessage(sender, "&cUnknown command! Type \"/cam help\" for help.");
+            CF.sendMessage(sender, Lang.get("Unknown-Command"));
         }
         return true;
     }
