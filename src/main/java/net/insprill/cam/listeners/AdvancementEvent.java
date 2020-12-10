@@ -5,6 +5,7 @@ import net.insprill.cam.utils.CF;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,9 +14,12 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class AdvancementEvent implements Listener {
 
+    public static final ExecutorService advancementProcessor = Executors.newSingleThreadExecutor();
     private final CAM plugin;
 
     public AdvancementEvent(CAM plugin) {
@@ -25,35 +29,61 @@ public class AdvancementEvent implements Listener {
 
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
-        Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
-        List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria());
-        if (criteria.isEmpty()) return;
-        if (player.getAdvancementProgress(e.getAdvancement()).getDateAwarded(criteria.get(criteria.size() - 1)
-        ).getTime() < System.currentTimeMillis() - 10 * 1000)
-            return;
-        String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
-        if (message.equals("default"))
-            message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
+        advancementProcessor.execute(() -> {
+            Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
+            List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria()); // List of all criteria for advancement.
+            if (criteria.isEmpty()) return; // If the advancement has no criteria, return;
+            AdvancementProgress ap = player.getAdvancementProgress(e.getAdvancement()); // Get players advancement progress for the advancement they got.
+            if (ap == null) return; // if the progress is null, return.
+            if (ap.getDateAwarded(criteria.get(criteria.size() - 1)) != null) { // If we can get the date the last criteria was awarded.
+                if (ap.getDateAwarded(criteria.get(criteria.size() - 1)).getTime() < System.currentTimeMillis() - 5 * 1000) { // If the last criteria was awarded more then 5 second ago, return;
+                    return;
+                }
+            }
+            if (plugin.configFile.getBoolean("Store-Completed-Advancements.Enabled", true)) {
+                storage:
+                {
+                    String advKey = e.getAdvancement().getKey().toString();
+                    if (plugin.configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true)
+                            && advKey.startsWith("minecraft:")) // If SCA is enabled and only custom is true, break out of this.
+                        break storage;
+                    List<String> advancements = plugin.dataFile.getStringList(player.getUniqueId().toString());
+                    if (advancements.contains(advKey)) // If the player got this advancement already, return.
+                        return;
+                    advancements.add(advKey); // Add advancement to list of ones they have.
+                    plugin.dataFile.set(player.getUniqueId().toString(), advancements);
+                    plugin.dataFile.save();
+                }
+            }
 
-        String advName = e.getAdvancement().getKey().toString(); // Advancement name from key.
-        advName = advName.substring(advName.lastIndexOf('/')); // Only get everything after the last '/'.
-        advName = StringUtils.replace(advName, "/", ""); // Remove the '/'.
-        advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the "name" with a space.
-        advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
-        message = CF.setPlaceholders(player, message, advName); // Set placeholders.
-        if (plugin.configFile.getBoolean("Radius.Enabled", false)) { // If radius messages are enabled.
-            for (Player p : getNearbyPlayers(player, plugin.configFile.getConfig().getDouble("Radius.Range"))) { // For all players close to player who got advancement.
-                sendMessage(p, message); // Send the message.
+            String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
+            if (message.equals("none")) return; // Return if the message is set to 'none'.
+            if (message.equals("default"))
+                message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
+
+            String advName = e.getAdvancement().getKey().getKey(); // Advancement name from key.
+            if (advName.contains("root") || advName.contains("recipes"))
+                return; // Return if the advancements key contains 'root' or 'recipes'.
+            advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name.
+            if (plugin.configFile.getStringList("Disabled-Advancements").contains(advName))
+                return; // Return if the advancement is disabled.
+            advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
+            advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
+            message = CF.setPlaceholders(player, message, advName); // Set placeholders.
+            if (plugin.configFile.getBoolean("Radius.Enabled", false)) { // If radius messages are enabled.
+                for (Player p : getNearbyPlayers(player, plugin.configFile.getConfig().getDouble("Radius.Range"))) { // For all players close to player who got advancement.
+                    sendMessage(p, message); // Send the message.
+                }
             }
-        }
-        else { // If radius messages are NOT enabled.
-            for (Player p : Bukkit.getOnlinePlayers()) { // For all players on the server.
-                sendMessage(p, message); // Send the message.
+            else { // If radius messages are NOT enabled.
+                for (Player p : Bukkit.getOnlinePlayers()) { // For all players on the server.
+                    sendMessage(p, message); // Send the message.
+                }
             }
-        }
-        if (plugin.configFile.getBoolean("Send-Message-To-Console", true)) {
-            CF.sendConsoleMessage(CF.setPlaceholders(player, plugin.advancementsFile.getString("default"), advName));
-        }
+            if (plugin.configFile.getBoolean("Send-Message-To-Console", true)) {
+                CF.sendConsoleMessage(CF.setPlaceholders(player, plugin.advancementsFile.getString("default"), advName)); // Send default message to console if it's enabled.
+            }
+        });
     }
 
     void sendMessage(Player player, String message) {
