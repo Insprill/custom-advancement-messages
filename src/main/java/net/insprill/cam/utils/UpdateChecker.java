@@ -14,7 +14,7 @@ public class UpdateChecker {
     private static final UpdateChecker instance = new UpdateChecker();
     public String newVersion;
     public String currentVersion;
-    String pluginID = "00000";
+    String pluginID = "86618";
 
     public static UpdateChecker getInstance() {
         return instance;
