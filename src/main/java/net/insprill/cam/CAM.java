@@ -17,6 +17,9 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Iterator;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class CAM extends JavaPlugin {
 
@@ -30,6 +33,7 @@ public class CAM extends JavaPlugin {
     public Chat chat = null;
     public boolean hasVault = false;
     public boolean hasPapi = false;
+    public ExecutorService advancementProcessor;
 
     public static CAM getInstance() {
         return instance;
@@ -82,6 +86,8 @@ public class CAM extends JavaPlugin {
         initializeAdvancementsTimer.stop();
         CF.sendConsoleMessage("&3Initialized advancements! &6" + initializeAdvancementsTimer.getElapsedTime().toMillis() + "ms");
 
+        advancementProcessor = Executors.newSingleThreadExecutor();
+
         new AdvancementEvent(this);
         new Commands(this);
         startingPluginTimer.stop();
@@ -95,7 +101,13 @@ public class CAM extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        AdvancementEvent.advancementProcessor.shutdown();
+        advancementProcessor.shutdown();
+        try {
+            if (!advancementProcessor.awaitTermination(5, TimeUnit.SECONDS))
+                advancementProcessor.shutdownNow();
+        } catch (InterruptedException ie) {
+            advancementProcessor.shutdownNow();
+        }
     }
 
     private void setupChat() {
