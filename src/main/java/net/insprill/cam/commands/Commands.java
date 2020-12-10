@@ -38,6 +38,7 @@ public class Commands implements CommandExecutor {
             String helpPage1 = "&e&l========< &c&lCAM Help &e&l>========" + "\n" +
                     "&a&l/cam help &7-> &2Opens help page" + "\n" +
                     "&a&l/cam reload &7-> &2Reloads all config files." + "\n" +
+                    "&a&l/cam revoke <player> <advancement> &7-> &2Removes advancement for player from data file if enabled." + "\n" +
                     "&a&l/cam version &7-> &2Shows versions for various things." + "\n" +
                     "&a&l/cam debug &7-> &2Create debug link. Only used for for support if you have any issues." + "\n" +
                     "&e&l==========================";
