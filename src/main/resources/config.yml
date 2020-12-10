@@ -6,15 +6,15 @@ Radius:
   Enabled: false
   Range: 100.0
 # Should all completed enchants be stored in CAM's own file.
-# If you have custom advancements you should enable this.
-# Otherwise, only enable this if you are seeing advancement messages be sent
-# multiple times for the same advancement. If Only-Custom is false this
+# If you have custom advancements you should enable this (with Only-Custom true).
+# Otherwise, only enable this if you are seeing messages be sent
+# multiple times for the same advancement. If enabled with Only-Custom false this
 # can start to take up quite a bit of space.
 Store-Completed-Advancements:
   Enabled: false
   Only-Custom: true
 # Names of advancements to disable.
-# Name are the key that holds the message value in the advancementMessages.yml.
+# Names are the keys that holds the message value in the advancementMessages.yml.
 # Note: Disabling an advancement just means the messages doesn't get sent.
 Disabled-Advancements:
   - YourDisabledAdvancementHere
