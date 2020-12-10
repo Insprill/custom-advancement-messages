@@ -4,10 +4,13 @@ import net.insprill.cam.CAM;
 import net.insprill.cam.utils.*;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public class Commands implements CommandExecutor {
 
@@ -124,7 +127,45 @@ public class Commands implements CommandExecutor {
                 CF.sendMessage(sender, "&2Creating debug link, please wait...");
                 CF.sendMessage(sender, "&a" + Debug.getInstance().createDebugLink());
             });
+
         }
+        else if (args[0].equalsIgnoreCase("revoke")) {
+            if (!sender.hasPermission("cam.command.revoke")) {
+                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
+                return true;
+            }
+            if (plugin.dataFile == null) return true;
+            if (args.length == 1) {
+                CF.sendMessage(sender, "&cPlease specify a player & an advancement.");
+                return true;
+            }
+            if (args.length == 2) {
+                CF.sendMessage(sender, "&cPlease specify an advancement.");
+                return true;
+            }
+            OfflinePlayer op = Bukkit.getOfflinePlayer(args[1]);
+            if (op == null || !op.hasPlayedBefore()) {
+                CF.sendMessage(sender, Lang.get("Player-Not-Found"));
+                return true;
+            }
+            String uuid = op.getUniqueId().toString();
+            if (args[2].equalsIgnoreCase("everything")) {
+                plugin.dataFile.set(uuid, null);
+            }
+            else {
+                List<String> advancements = plugin.dataFile.getStringList(uuid);
+                if (!advancements.contains(args[2])) {
+                    CF.sendMessage(sender, "&c" + op.getName() + " does not have that advancement!");
+                    return true;
+                }
+                advancements.remove(args[2]);
+                plugin.dataFile.set(uuid, advancements);
+            }
+            plugin.dataFile.save();
+            CF.sendMessage(sender, "&aRemoved " + args[2] + " from " + op.getName() + "!");
+        }
+
+        // Doesn't match any commands.
         else {
             CF.sendMessage(sender, "&cUnknown command! Type \"/cam help\" for help.");
         }
