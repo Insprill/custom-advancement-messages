@@ -26,6 +26,7 @@ public class CAM extends JavaPlugin {
     public YamlManager advancementsFile;
     public YamlManager langFile;
     public YamlManager configFile;
+    public YamlManager dataFile;
     public Chat chat = null;
     public boolean hasVault = false;
     public boolean hasPapi = false;
@@ -46,6 +47,8 @@ public class CAM extends JavaPlugin {
         advancementsFile = new YamlManager("advancementMessages.yml");
         langFile = new YamlManager("lang.yml");
         configFile = new YamlManager("config.yml");
+        if (configFile.getBoolean("Store-Completed-Advancements.Enabled", false))
+            dataFile = new YamlManager("data.yml");
 
         String a = Bukkit.getServer().getClass().getPackage().getName();
         String mcv = a.substring(a.lastIndexOf('.') + 2);
@@ -92,7 +95,7 @@ public class CAM extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
+        AdvancementEvent.advancementProcessor.shutdown();
     }
 
     private void setupChat() {
@@ -120,7 +123,18 @@ public class CAM extends JavaPlugin {
     }
 
     public void reload() {
+        configFile.reload();
+        langFile.reload();
         advancementsFile.reload();
+        if (configFile.getBoolean("Store-Completed-Advancements", false)) {
+            if (dataFile == null)
+                dataFile = new YamlManager("data.yml");
+            else
+                dataFile.reload();
+        }
+        else {
+            dataFile = null;
+        }
         initializeAdvancements();
     }
 
