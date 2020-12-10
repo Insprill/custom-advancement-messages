@@ -1,6 +1,7 @@
 package net.insprill.cam.listeners;
 
 import net.insprill.cam.CAM;
+import net.insprill.cam.filemanagers.YamlManager;
 import net.insprill.cam.utils.CF;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
@@ -26,7 +27,7 @@ public class AdvancementEvent implements Listener {
 
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
-        advancementProcessor.execute(() -> {
+        plugin.advancementProcessor.execute(() -> {
             Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
             List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria()); // List of all criteria for advancement.
             if (criteria.isEmpty()) return; // If the advancement has no criteria, return;
@@ -37,18 +38,21 @@ public class AdvancementEvent implements Listener {
                     return;
                 }
             }
+            String uuid = player.getUniqueId().toString();
             if (plugin.configFile.getBoolean("Store-Completed-Advancements.Enabled", true)) {
+                if (plugin.dataFile == null)
+                    plugin.dataFile = new YamlManager("data.yml");
                 storage:
                 {
                     String advKey = e.getAdvancement().getKey().toString();
                     if (plugin.configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true)
                             && advKey.startsWith("minecraft:")) // If SCA is enabled and only custom is true, break out of this.
                         break storage;
-                    List<String> advancements = plugin.dataFile.getStringList(player.getUniqueId().toString());
+                    List<String> advancements = plugin.dataFile.getStringList(uuid);
                     if (advancements.contains(advKey)) // If the player got this advancement already, return.
                         return;
                     advancements.add(advKey); // Add advancement to list of ones they have.
-                    plugin.dataFile.set(player.getUniqueId().toString(), advancements);
+                    plugin.dataFile.set(uuid, advancements);
                     plugin.dataFile.save();
                 }
             }
