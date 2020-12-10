@@ -14,12 +14,9 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class AdvancementEvent implements Listener {
 
-    public static final ExecutorService advancementProcessor = Executors.newSingleThreadExecutor();
     private final CAM plugin;
 
     public AdvancementEvent(CAM plugin) {
