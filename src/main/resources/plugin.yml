@@ -1,4 +1,4 @@
-name: CustomAdvancementMessages
+name: CAM
 main: net.insprill.cam.CAM
 version: 1.0.0.0
 softdepend:
