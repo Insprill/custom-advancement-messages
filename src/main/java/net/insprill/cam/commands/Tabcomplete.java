@@ -71,6 +71,8 @@ public class Tabcomplete implements TabCompleter {
                         Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                         while (advancementIterator.hasNext()) {
                             Advancement advancement = advancementIterator.next();
+                            if (CAM.getInstance().configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true))
+                                if (advancement.getKey().toString().startsWith("minecraft:")) continue;
                             args.add(advancement.getKey().toString());
                         }
                     }
