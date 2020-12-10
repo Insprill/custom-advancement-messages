@@ -17,6 +17,7 @@ permissions:
       cam.command.help: true
       cam.command.version: true
       cam.command.debug: true
+      cam.command.revoke: true
       cam.command.reload: true
   cam.command.*:
     description: Gives access to all CAM commands
@@ -24,6 +25,7 @@ permissions:
       cam.command.help: true
       cam.command.version: true
       cam.command.debug: true
+      cam.command.revoke: true
       cam.command.reload: true
   cam.command.help:
     description: Gives access to "/cam help"
@@ -31,5 +33,7 @@ permissions:
     description: Gives access to "/cam version"
   cam.command.debug:
     description: Gives access to "/cam debug"
+  cam.command.revoke:
+    description: Gives access to "/cam revoke"
   cam.command.reload:
     description: Gives access to "/cam reload"
