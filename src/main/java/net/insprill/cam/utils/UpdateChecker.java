@@ -14,6 +14,7 @@ public class UpdateChecker {
     private static final UpdateChecker instance = new UpdateChecker();
     public String newVersion;
     public String currentVersion;
+    String pluginID = "00000";
 
     public static UpdateChecker getInstance() {
         return instance;
@@ -41,12 +42,12 @@ public class UpdateChecker {
         Bukkit.getScheduler().runTaskAsynchronously(CAM.getInstance(), () -> {
             if (UpdateChecker.getInstance().checkForUpdates()) {
                 if (sender instanceof Player) {
-                    String message = "{\"text\":\"&2CAM &2" + newVersion + " &ais available! Your version: &2" + CAM.getInstance().getDescription().getVersion() + "\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/71608/updates\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"https://www.spigotmc.org/resources/71608/updates\"}}";
+                    String message = "{\"text\":\"&2CAM &2" + newVersion + " &ais available! Your version: &2" + CAM.getInstance().getDescription().getVersion() + "\",\"clickEvent\":{\"action\":\"open_url\",\"value\":\"https://www.spigotmc.org/resources/" + pluginID + "/updates\"},\"hoverEvent\":{\"action\":\"show_text\",\"value\":\"https://www.spigotmc.org/resources/" + pluginID + "/updates\"}}";
                     Bukkit.getScheduler().runTask(CAM.getInstance(), () -> CF.sendJsonMessage(((Player) sender), message));
                 }
                 else {
                     CF.sendConsoleMessage("&aCAM &2" + newVersion + " &ais available! Your version: &2" + CAM.getInstance().getDescription().getVersion());
-                    CF.sendConsoleMessage("&2https://www.spigotmc.org/resources/71608/");
+                    CF.sendConsoleMessage("&2https://www.spigotmc.org/resources/" + pluginID + "/");
                 }
             }
         });
