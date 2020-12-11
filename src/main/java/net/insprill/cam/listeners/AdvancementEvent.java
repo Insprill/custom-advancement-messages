@@ -112,4 +112,12 @@ public class AdvancementEvent implements Listener {
         return nearbyPlayers; // Return the list of players.
     }
 
+    String getDefaultCategory(String key) {
+        key = CF.formatKey(key);
+        if (key.startsWith("minecraft.")) {
+            key = key.substring(key.indexOf('.') + 1, StringUtils.ordinalIndexOf(key, ".", 2));
+        }
+        return key.toLowerCase();
+    }
+
 }
