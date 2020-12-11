@@ -13,3 +13,8 @@
 # If you want a message to be centered in the chatbot, put '<center>' at the beginning of the message.
 # If you don't want a message, set it to 'none'.
 default: "&2[playerName] &ahas gotten the advancement &2[adv]&a!"
+nether: default
+story: default
+adventure: default
+end: default
+husbandry: default

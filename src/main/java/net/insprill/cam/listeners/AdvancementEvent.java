@@ -28,7 +28,8 @@ public class AdvancementEvent implements Listener {
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         plugin.advancementProcessor.execute(() -> {
-            if (plugin.configFile.getStringList("Disabled-Advancements").contains(e.getAdvancement().getKey().toString()))
+            String advKey = e.getAdvancement().getKey().toString();
+            if (plugin.configFile.getStringList("Disabled-Advancements").contains(advKey))
                 return; // Return if the advancement is disabled.
             Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
             List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria()); // List of all criteria for advancement.
@@ -46,7 +47,6 @@ public class AdvancementEvent implements Listener {
                     plugin.dataFile = new YamlManager("data.yml");
                 storage:
                 {
-                    String advKey = e.getAdvancement().getKey().toString();
                     if (plugin.configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true)
                             && advKey.startsWith("minecraft:")) // If SCA is enabled and only custom is true, break out of this.
                         break storage;
@@ -61,10 +61,31 @@ public class AdvancementEvent implements Listener {
 
             String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
-            if (message.equals("default"))
-                message = plugin.advancementsFile.getString("default"); // If it's default, use the default message.
+            if (message.equals("default")) {
+                switch (getDefaultCategory(advKey)) { // Switch advancement type.
+                    case "nether":
+                        message = plugin.advancementsFile.getString("nether", "default");
+                        break;
+                    case "story":
+                        message = plugin.advancementsFile.getString("story", "default");
+                        break;
+                    case "adventure":
+                        message = plugin.advancementsFile.getString("adventure", "default");
+                        break;
+                    case "end":
+                        message = plugin.advancementsFile.getString("end", "default");
+                        break;
+                    case "husbandry":
+                        message = plugin.advancementsFile.getString("husbandry", "default");
+                        break;
+                    default:
+                        message = plugin.advancementsFile.getString("default", "default");
+                }
+                if (message.equals("default"))
+                    message = plugin.advancementsFile.getString("default", "&2[playerName] &ahas gotten the advancement &2[adv]&a!"); // If it's still default, use the default message.
+            }
 
-            String advName = e.getAdvancement().getKey().getKey(); // Advancement name from key.
+            String advName = advKey; // Advancement name from key.
             if (advName.contains("root") || advName.contains("recipes"))
                 return; // Return if the advancements key contains 'root' or 'recipes'.
             advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
