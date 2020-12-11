@@ -13,8 +13,9 @@ Radius:
 Store-Completed-Advancements:
   Enabled: false
   Only-Custom: true
-# Names of advancements to disable.
-# Names are the keys that holds the message value in the advancementMessages.yml.
+# List of advancements to disable.
+# You need to enter the full key in here for it to be disabled.
+# You can find full keys in the vanilla '/advancement' command.
 # Note: Disabling an advancement just means the messages doesn't get sent.
 Disabled-Advancements:
   - YourDisabledAdvancementHere

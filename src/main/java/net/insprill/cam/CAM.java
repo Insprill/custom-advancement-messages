@@ -128,6 +128,8 @@ public class CAM extends JavaPlugin {
         while (advancementIterator.hasNext()) {
             Advancement advancement = advancementIterator.next();
             String key = CF.formatKey(advancement);
+            if (key.contains("root") || key.contains("recipes"))
+                continue; // Skip if the advancements key contains 'root' or 'recipes'.
             if (!advancementsFile.getConfig().contains(key))
                 advancementsFile.set(key, "default");
         }
