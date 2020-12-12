@@ -59,7 +59,7 @@ public class AdvancementEvent implements Listener {
                 }
             }
 
-            String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
+            String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement()), "none"); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
             if (message.equals("default")) {
                 switch (getDefaultCategory(advKey)) { // Switch advancement type.
