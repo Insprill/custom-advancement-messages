@@ -29,6 +29,8 @@ public class AdvancementEvent implements Listener {
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         plugin.advancementProcessor.execute(() -> {
             String advKey = e.getAdvancement().getKey().toString();
+            if (advKey.contains("root") || advKey.contains("recipes"))
+                return; // Return if the advancements key contains 'root' or 'recipes'.
             if (plugin.configFile.getStringList("Disabled-Advancements").contains(advKey))
                 return; // Return if the advancement is disabled.
             Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
@@ -59,7 +61,7 @@ public class AdvancementEvent implements Listener {
                 }
             }
 
-            String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement())); // Message string we modify.
+            String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement()), "none"); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
             if (message.equals("default")) {
                 switch (getDefaultCategory(advKey)) { // Switch advancement type.
