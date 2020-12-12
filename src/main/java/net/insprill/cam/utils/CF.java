@@ -134,6 +134,7 @@ public class CF {
      * @return Key in a format that can be put in a config file.
      */
     public static String formatKey(Keyed key) {
+        if (key == null) return "none";
         return formatKey(key.getKey().toString());
     }
 
@@ -142,6 +143,7 @@ public class CF {
      * @return String that can be put in a config file.
      */
     public static String formatKey(String key) {
+        if (key == null) return "none";
         key = StringUtils.replace(key, "/", ".");
         key = StringUtils.replace(key, ":", ".");
         return key;
