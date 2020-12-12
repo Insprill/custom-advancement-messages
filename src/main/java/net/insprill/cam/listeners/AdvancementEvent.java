@@ -88,8 +88,6 @@ public class AdvancementEvent implements Listener {
             }
 
             String advName = advKey; // Advancement name from key.
-            if (advName.contains("root") || advName.contains("recipes"))
-                return; // Return if the advancements key contains 'root' or 'recipes'.
             advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
             advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
             advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
