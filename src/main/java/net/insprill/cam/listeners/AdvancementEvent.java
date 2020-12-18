@@ -60,30 +60,12 @@ public class AdvancementEvent implements Listener {
 
             String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement()), "none"); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
-            if (message.equals("default")) {
-                switch (getDefaultCategory(advKey)) { // Switch advancement type.
-                    case "nether":
-                        message = plugin.advancementsFile.getString("nether", "default");
-                        break;
-                    case "story":
-                        message = plugin.advancementsFile.getString("story", "default");
-                        break;
-                    case "adventure":
-                        message = plugin.advancementsFile.getString("adventure", "default");
-                        break;
-                    case "end":
-                        message = plugin.advancementsFile.getString("end", "default");
-                        break;
-                    case "husbandry":
-                        message = plugin.advancementsFile.getString("husbandry", "default");
-                        break;
-                    default:
-                        message = plugin.advancementsFile.getString("default", "default");
-                }
-                if (message.equals("default"))
-                    message = plugin.advancementsFile.getString("default", "&2[playerName] &ahas gotten the advancement &2[adv]&a!"); // If it's still default, use the default message.
+            if (message.startsWith("custom.")) {
+                message = plugin.advancementsFile.getString(message, "default");
             }
-
+            if (message.equals("default")) {
+                message = plugin.advancementsFile.getString("default", "&2[playerName] &ahas gotten the advancement &2[adv]&a!");
+            }
             String advName = advKey; // Advancement name from key.
             advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
             advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
@@ -128,14 +110,6 @@ public class AdvancementEvent implements Listener {
             }
         }
         return nearbyPlayers; // Return the list of players.
-    }
-
-    String getDefaultCategory(String key) {
-        key = CF.formatKey(key);
-        if (key.startsWith("minecraft.")) {
-            key = key.substring(key.indexOf('.') + 1, StringUtils.ordinalIndexOf(key, ".", 2));
-        }
-        return key.toLowerCase();
     }
 
 }
