@@ -14,6 +14,6 @@
 # If you don't want a message, set it to 'none'.
 # To use custom category's, firstly add one to the list. Lets say we added 'rare' like
 # it is by default. Then, set the advancements message to 'custom.rare' and it will use that message!
-default: "&2[playerName] &ahas gotten the advancement &2[adv]&a!"
+default: "&a[playerName] &7has gotten the advancement &a[adv]&7!"
 custom:
-  rare: '&2[playerName] &ahas gotten the &brare &aadvancement &2[adv]&a!'
+  rare: '&a[playerName] &7has gotten the &brare &7advancement &a[adv]&7!'
