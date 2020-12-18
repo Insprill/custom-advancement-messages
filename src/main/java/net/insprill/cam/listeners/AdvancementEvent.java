@@ -47,11 +47,8 @@ public class AdvancementEvent implements Listener {
             if (plugin.configFile.getBoolean("Store-Completed-Advancements.Enabled", true)) {
                 if (plugin.dataFile == null)
                     plugin.dataFile = new YamlManager("data.yml");
-                storage:
-                {
-                    if (plugin.configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true)
-                            && advKey.startsWith("minecraft:")) // If SCA is enabled and only custom is true, break out of this.
-                        break storage;
+                if (!plugin.configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true)
+                        || !advKey.startsWith("minecraft:")) {// If SCA is enabled and only custom is true, break out of this.
                     List<String> advancements = plugin.dataFile.getStringList(uuid);
                     if (advancements.contains(advKey)) // If the player got this advancement already, return.
                         return;
