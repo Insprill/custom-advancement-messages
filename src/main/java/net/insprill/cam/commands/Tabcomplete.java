@@ -19,6 +19,7 @@ public class Tabcomplete implements TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] commandArgs) {
         List<String> args = new ArrayList<>();
 
+        // No args
         if (commandArgs.length == 1) {
             if (sender.hasPermission("cam.command.help")) {
                 args.add("help");
@@ -40,10 +41,11 @@ public class Tabcomplete implements TabCompleter {
                 args.add("debug");
             }
             return match(args, commandArgs[0]);
-
         }
-        else if (commandArgs.length == 2) {
-            if (commandArgs[0].equalsIgnoreCase("set")) {
+
+        // Set
+        if (commandArgs[0].equalsIgnoreCase("set")) {
+            if (commandArgs.length == 2) {
                 if (sender.hasPermission("cam.command.set")) {
                     Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                     while (advancementIterator.hasNext()) {
@@ -52,21 +54,24 @@ public class Tabcomplete implements TabCompleter {
                     }
                 }
             }
-            else if (commandArgs[0].equalsIgnoreCase("revoke")) {
-                if (CAM.getInstance().dataFile != null) {
-                    if (sender.hasPermission("cam.command.revoke")) {
+            return match(args, commandArgs[1]);
+        }
+
+        // Revoke
+        if (commandArgs[0].equalsIgnoreCase("revoke")) {
+            if (commandArgs.length == 2) {
+                if (sender.hasPermission("cam.command.revoke")) {
+                    if (CAM.getInstance().dataFile != null) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             args.add((player.getName()));
                         }
                     }
                 }
+                return match(args, commandArgs[1]);
             }
-            return match(args, commandArgs[1]);
-        }
-        else if (commandArgs.length == 3) {
-            if (commandArgs[0].equalsIgnoreCase("revoke")) {
-                if (CAM.getInstance().dataFile != null) {
-                    if (sender.hasPermission("cam.command.revoke")) {
+            if (commandArgs.length == 3) {
+                if (sender.hasPermission("cam.command.revoke")) {
+                    if (CAM.getInstance().dataFile != null) {
                         args.add("everything");
                         Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                         while (advancementIterator.hasNext()) {
@@ -77,9 +82,10 @@ public class Tabcomplete implements TabCompleter {
                         }
                     }
                 }
+                return match(args, commandArgs[2]);
             }
-            return match(args, commandArgs[2]);
         }
+
 
         return Collections.emptyList();
     }
