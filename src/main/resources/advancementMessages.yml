@@ -12,9 +12,8 @@
 # All messages also support PlaceholderAPI.
 # If you want a message to be centered in the chatbot, put '<center>' at the beginning of the message.
 # If you don't want a message, set it to 'none'.
-default: "&2[playerName] &ahas gotten the advancement &2[adv]&a!"
-nether: default
-story: default
-adventure: default
-end: default
-husbandry: default
+# To use custom category's, firstly add one to the list. Lets say we added 'rare' like
+# it is by default. Then, set the advancements message to 'custom.rare' and it will use that message!
+default: "&a[playerName] &7has gotten the advancement &a[adv]&7!"
+custom:
+  rare: '&a[playerName] &7has gotten the &brare &7advancement &a[adv]&7!'

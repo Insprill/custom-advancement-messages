@@ -47,7 +47,7 @@ public class Debug {
             http.setDoOutput(true);
             http.getOutputStream().write(builder.toString().getBytes(Charsets.UTF_8));
             JsonObject object = new Gson().fromJson(new InputStreamReader(http.getInputStream(), Charsets.UTF_8), JsonObject.class);
-            return "https://paste.md-5.net/" + object.get("key").getAsString() + ".yaml";
+            return "https://paste.md-5.net/" + object.get("key").getAsString();
         } catch (IOException exception) {
             return "&cCould not create debug link! Error: " + exception.getMessage();
         }

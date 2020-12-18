@@ -22,6 +22,21 @@ public class Commands implements CommandExecutor {
         plugin.getCommand("cam").setTabCompleter(new Tabcomplete());
     }
 
+    /**
+     * Checks if a player has a permission.
+     *
+     * @param sender     CommandSender to check.
+     * @param permission Permission to check.
+     * @return True if sender has the permission, false otherwise.
+     */
+    boolean checkPermission(CommandSender sender, String permission) {
+        if (sender.hasPermission(permission))
+            return true;
+        else
+            CF.sendMessage(sender, Lang.get("No-Permission"));
+        return false;
+    }
+
     @SuppressWarnings("deprecation")
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String commandLabel, String[] args) {
 
@@ -30,11 +45,10 @@ public class Commands implements CommandExecutor {
             CF.sendMessage(sender, "&eFor a list of commands, type /cam help");
             return true;
         }
+
+        // Help
         if (args[0].equalsIgnoreCase("help")) {
-            if (!sender.hasPermission("cam.command.help")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.help")) return true;
             String helpPage1 = "&e&l========< &c&lCAM Help &e&l>========" + "\n" +
                     "&a&l/cam help &7-> &2Opens help page" + "\n" +
                     "&a&l/cam reload &7-> &2Reloads all config files." + "\n" +
@@ -52,23 +66,20 @@ public class Commands implements CommandExecutor {
                     CF.sendMessage(sender, "&cWhoops! This page doesn't exist!");
             }
         }
+
+        // Reload
         else if (args[0].equalsIgnoreCase("reload")) {
-            if (!sender.hasPermission("cam.command.reload")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.reload")) return true;
             StopWatch reloadPluginTimer = new StopWatch();
             reloadPluginTimer.start();
             plugin.reload();
             reloadPluginTimer.stop();
             CF.sendMessage(sender, "&aPlugin Successfully Reloaded! &eTime taken: &6" + reloadPluginTimer.getElapsedTime().toMillis() + " &ems");
-
         }
+
+        // Set
         else if (args[0].equalsIgnoreCase("set")) {
-            if (!sender.hasPermission("cam.command.set")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.set")) return true;
 
             if (args.length == 1) {
                 CF.sendMessage(sender, "&cPlease specify an advancement & a message.");
@@ -88,13 +99,11 @@ public class Commands implements CommandExecutor {
             else {
                 CF.sendMessage(sender, Lang.get("Advancement-Not-Found"));
             }
-
         }
+
+        // Version
         else if (args[0].equalsIgnoreCase("version") || args[0].equalsIgnoreCase("ver")) {
-            if (!sender.hasPermission("cam.command.version")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.version")) return true;
             if (args.length == 1) {
                 sender.sendMessage(CF.consoleFormat("&e&l==============================="));
                 sender.sendMessage(CF.consoleFormat("&2CAM: &a" + plugin.getDescription().getVersion()));
@@ -117,24 +126,20 @@ public class Commands implements CommandExecutor {
                 UpdateChecker.getInstance().sendUpdateMessage(sender);
 
             }
-
         }
+
+        // Debug
         else if (args[0].equalsIgnoreCase("debug")) {
-            if (!sender.hasPermission("cam.command.debug")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.debug")) return true;
             Bukkit.getScheduler().runTaskAsynchronously(CAM.getInstance(), () -> {
                 CF.sendMessage(sender, "&2Creating debug link, please wait...");
                 CF.sendMessage(sender, "&a" + Debug.getInstance().createDebugLink());
             });
-
         }
+
+        // Revoke
         else if (args[0].equalsIgnoreCase("revoke")) {
-            if (!sender.hasPermission("cam.command.revoke")) {
-                sender.sendMessage(CF.consoleFormat(Lang.get("No-Permission")));
-                return true;
-            }
+            if (!checkPermission(sender, "cam.command.revoke")) return true;
             if (plugin.dataFile == null) return true;
             if (args.length == 1) {
                 CF.sendMessage(sender, "&cPlease specify a player & an advancement.");
@@ -172,4 +177,5 @@ public class Commands implements CommandExecutor {
         }
         return true;
     }
+
 }
