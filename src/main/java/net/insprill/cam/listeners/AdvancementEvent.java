@@ -57,19 +57,28 @@ public class AdvancementEvent implements Listener {
                     plugin.dataFile.save();
                 }
             }
-
+            String advName = null;
             String message = plugin.advancementsFile.getString(CF.formatKey(e.getAdvancement()), "none"); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
-            if (message.startsWith("custom.")) {
-                message = plugin.advancementsFile.getString(message, "default");
+
+            if (message.contains("-{{") && message.endsWith("}}")) { // Check if string contains custom name.
+                advName = message.substring(StringUtils.indexOf(message, "-{{") + 3, StringUtils.lastIndexOf(message, "}}")); // Create substring, getting just the custom name.
+                advName = CF.format(advName);
+                message = message.substring(0, StringUtils.indexOf(message, "-{{")); // Don't include custom name section is actual message.
             }
-            if (message.equals("default")) {
+
+            if (message.startsWith("custom.")) // If we should use a custom 'default'
+                message = plugin.advancementsFile.getString(message, "default"); // Try to get the custom default, but get the normal one if it doesn't exist.
+            if (message.equals("default")) // If the message is still 'default', get the actual default message.
                 message = plugin.advancementsFile.getString("default", "&2[playerName] &ahas gotten the advancement &2[adv]&a!");
+
+            if (advName == null) { // If no custom name is specified.
+                advName = advKey; // Advancement name from key.
+                advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
+                advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
+                advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
             }
-            String advName = advKey; // Advancement name from key.
-            advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
-            advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
-            advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
+
             message = CF.setPlaceholders(player, message, advName); // Set placeholders.
             if (plugin.configFile.getBoolean("Radius.Enabled", false)) { // If radius messages are enabled.
                 for (Player p : getNearbyPlayers(player, plugin.configFile.getConfig().getDouble("Radius.Range"))) { // For all players close to player who got advancement.
