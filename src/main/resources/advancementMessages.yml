@@ -14,6 +14,10 @@
 # If you don't want a message, set it to 'none'.
 # To use custom category's, firstly add one to the list. Lets say we added 'rare' like
 # it is by default. Then, set the advancements message to 'custom.rare' and it will use that message!
+# If advancement names aren't what you expect, don't worry. If you are using the default message, or
+# a custom default, just add '-{{Your Name}}' to the end to give the [adv] placeholder a custom name.
+# So if you have this: "obtain_crying_obsidian: default-{{Who's cutting onions?}}"
+# That will send the default message, with the [adv] placeholder saying "Who's cutting onions?".
 default: "&a[playerName] &7has gotten the advancement &a[adv]&7!"
 custom:
   rare: '&a[playerName] &7has gotten the &brare &7advancement &a[adv]&7!'
