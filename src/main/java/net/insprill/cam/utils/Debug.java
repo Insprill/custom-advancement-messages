@@ -39,15 +39,15 @@ public class Debug {
                     .append("\n");
 
         try {
-            URL url = new URL("https://paste.md-5.net/documents");
+            URL url = new URL("https://paste.insprill.net/documents");
             HttpURLConnection http = (HttpURLConnection) url.openConnection();
             http.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36");
             http.setConnectTimeout(5 * 1000);
-            http.setReadTimeout(5 * 1000);
+            http.setReadTimeout(10 * 1000);
             http.setDoOutput(true);
             http.getOutputStream().write(builder.toString().getBytes(Charsets.UTF_8));
             JsonObject object = new Gson().fromJson(new InputStreamReader(http.getInputStream(), Charsets.UTF_8), JsonObject.class);
-            return "https://paste.md-5.net/" + object.get("key").getAsString();
+            return "https://paste.insprill.net/" + object.get("key").getAsString() + ".yaml";
         } catch (IOException exception) {
             return "&cCould not create debug link! Error: " + exception.getMessage();
         }
