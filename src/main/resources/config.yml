@@ -1,4 +1,4 @@
-# Whether messages should be send to console.
+# Whether messages should be sent to the console.
 Send-Message-To-Console: true
 # If enabled, messages will only be sent within Range
 # blocks of the player that got the advancement
@@ -13,9 +13,19 @@ Radius:
 Store-Completed-Advancements:
   Enabled: false
   Only-Custom: true
+# When a player gets an achievement, if they are in one of these
+# gamemodes, no message will be sent. All gamemodes can be found here: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/GameMode.html
+Disabled-Gamemodes:
+  - CREATIVE
+# If a player gets an advancement while in one of these
+# worlds, no message will be sent. This also supports regex!
+# To use a regex match, simply start the name with '[regex]' followed
+# by your regex string.
+Disabled-Worlds:
+  - Disabled-World-1
 # List of advancements to disable.
 # You need to enter the full key in here for it to be disabled.
 # You can find full keys in the vanilla '/advancement' command.
-# Note: Disabling an advancement just means the messages doesn't get sent.
+# Note: Disabling an advancement just means the messages don't get sent.
 Disabled-Advancements:
   - YourDisabledAdvancementHere

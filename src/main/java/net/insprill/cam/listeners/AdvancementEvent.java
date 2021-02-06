@@ -5,6 +5,8 @@ import net.insprill.cam.utils.CF;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -27,21 +29,43 @@ public class AdvancementEvent implements Listener {
     @EventHandler
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         plugin.getAdvancementProcessor().execute(() -> {
-            String advKey = e.getAdvancement().getKey().toString();
+            Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
+            for (String worldName : plugin.getConfigFile().getStringList("Disabled-Worlds")) {
+                if ((worldName.startsWith("[regex]")) &&
+                        (player.getWorld().getName().matches(worldName.replace("[regex]", ""))))
+                    return;
+                if (worldName.equals(player.getWorld().getName()))
+                    return;
+            }
+
+            for (String gameModeString : plugin.getConfigFile().getStringList("Disabled-Gamemodes")) {
+                GameMode gameMode = GameMode.valueOf(gameModeString.toUpperCase());
+                if (gameMode == null) {
+                    CF.sendConsoleMessage("&4" + gameMode + " &cis not a valid gamemode!");
+                    break;
+                }
+                if (player.getGameMode() == gameMode) {
+                    System.out.println("Blacklisted Gamemode");
+                    return;
+                }
+            }
+
+            Advancement advancement = e.getAdvancement();
+            String advKey = advancement.getKey().toString();
             if (advKey.contains("root") || advKey.contains("recipes"))
                 return; // Return if the advancements key contains 'root' or 'recipes'.
             if (plugin.getConfigFile().getStringList("Disabled-Advancements").contains(advKey))
                 return; // Return if the advancement is disabled.
-            Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
-            List<String> criteria = new ArrayList<>(e.getAdvancement().getCriteria()); // List of all criteria for advancement.
+            List<String> criteria = new ArrayList<>(advancement.getCriteria()); // List of all criteria for advancement.
             if (criteria.isEmpty()) return; // If the advancement has no criteria, return;
-            AdvancementProgress ap = player.getAdvancementProgress(e.getAdvancement()); // Get players advancement progress for the advancement they got.
+            AdvancementProgress ap = player.getAdvancementProgress(advancement); // Get players advancement progress for the advancement they got.
             if (ap == null) return; // if the progress is null, return.
             if (ap.getDateAwarded(criteria.get(criteria.size() - 1)) != null) { // If we can get the date the last criteria was awarded.
                 if (ap.getDateAwarded(criteria.get(criteria.size() - 1)).getTime() < System.currentTimeMillis() - 5 * 1000) { // If the last criteria was awarded more then 5 second ago, return;
                     return;
                 }
             }
+
             String uuid = player.getUniqueId().toString();
             if (plugin.getConfigFile().getBoolean("Store-Completed-Advancements.Enabled", true)) {
                 if (plugin.getDataFile() == null)
@@ -56,8 +80,9 @@ public class AdvancementEvent implements Listener {
                     plugin.getDataFile().save();
                 }
             }
+
             String advName = null;
-            String message = plugin.getAdvancementsFile().getString(CF.formatKey(e.getAdvancement()), "none"); // Message string we modify.
+            String message = plugin.getAdvancementsFile().getString(CF.formatKey(advancement), "none"); // Message string we modify.
             if (message.equals("none")) return; // Return if the message is set to 'none'.
 
             if (message.contains("-{{") && message.endsWith("}}")) { // Check if string contains custom name.
