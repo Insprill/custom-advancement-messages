@@ -14,14 +14,14 @@ public class UpdateChecker {
     private static final UpdateChecker instance = new UpdateChecker();
     public String newVersion;
     public String currentVersion;
-    String pluginID = "86618";
+    private final String pluginID = "86618";
 
     public static UpdateChecker getInstance() {
         return instance;
     }
 
     public boolean checkForUpdates() {
-        if (!CAM.getInstance().configFile.getBoolean("DisableUpdateChecker", false)) {
+        if (!CAM.getInstance().getConfigFile().getBoolean("DisableUpdateChecker", false)) {
             currentVersion = CAM.getInstance().getDescription().getVersion();
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(

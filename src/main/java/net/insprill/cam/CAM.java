@@ -23,17 +23,17 @@ import java.util.concurrent.TimeUnit;
 
 public class CAM extends JavaPlugin {
 
-    static CAM instance;
-    final Metrics metrics = new Metrics(this, 0);
-    public int minecraftVersion = 0;
-    public YamlManager advancementsFile;
-    public YamlManager langFile;
-    public YamlManager configFile;
-    public YamlManager dataFile;
-    public Chat chat = null;
+    private static CAM instance;
+    private final Metrics metrics = new Metrics(this, 0);
+    private int minecraftVersion = 0;
+    private YamlManager advancementsFile;
+    private YamlManager langFile;
+    private YamlManager configFile;
+    private YamlManager dataFile;
+    private Chat chat = null;
     public boolean hasVault = false;
     public boolean hasPapi = false;
-    public ExecutorService advancementProcessor;
+    private ExecutorService advancementProcessor;
 
     public static CAM getInstance() {
         return instance;
@@ -145,11 +145,42 @@ public class CAM extends JavaPlugin {
                 dataFile = new YamlManager("data.yml");
             else
                 dataFile.reload();
-        }
-        else {
+        } else {
             dataFile = null;
         }
         initializeAdvancements();
+    }
+
+    public YamlManager getConfigFile() {
+        return configFile;
+    }
+
+    public YamlManager getLangFile() {
+        return langFile;
+    }
+
+    public YamlManager getAdvancementsFile() {
+        return advancementsFile;
+    }
+
+    public YamlManager getDataFile() {
+        return advancementsFile;
+    }
+
+    public void initDataFile() {
+        dataFile = new YamlManager("data.yml");
+    }
+
+    public ExecutorService getAdvancementProcessor() {
+        return advancementProcessor;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+
+    public int getMinecraftVersion() {
+        return minecraftVersion;
     }
 
 }

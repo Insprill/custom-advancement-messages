@@ -30,7 +30,7 @@ public class Tabcomplete implements TabCompleter {
             if (sender.hasPermission("cam.command.set")) {
                 args.add("set");
             }
-            if (CAM.getInstance().dataFile != null)
+            if (CAM.getInstance().getDataFile() != null)
                 if (sender.hasPermission("cam.command.revoke")) {
                     args.add("revoke");
                 }
@@ -61,7 +61,7 @@ public class Tabcomplete implements TabCompleter {
         if (commandArgs[0].equalsIgnoreCase("revoke")) {
             if (commandArgs.length == 2) {
                 if (sender.hasPermission("cam.command.revoke")) {
-                    if (CAM.getInstance().dataFile != null) {
+                    if (CAM.getInstance().getDataFile() != null) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             args.add((player.getName()));
                         }
@@ -71,12 +71,12 @@ public class Tabcomplete implements TabCompleter {
             }
             if (commandArgs.length == 3) {
                 if (sender.hasPermission("cam.command.revoke")) {
-                    if (CAM.getInstance().dataFile != null) {
+                    if (CAM.getInstance().getDataFile() != null) {
                         args.add("everything");
                         Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                         while (advancementIterator.hasNext()) {
                             Advancement advancement = advancementIterator.next();
-                            if (CAM.getInstance().configFile.getBoolean("Store-Completed-Advancements.Only-Custom", true))
+                            if (CAM.getInstance().getConfigFile().getBoolean("Store-Completed-Advancements.Only-Custom", true))
                                 if (advancement.getKey().toString().startsWith("minecraft:")) continue;
                             args.add(advancement.getKey().toString());
                         }

@@ -5,9 +5,9 @@ import java.time.Instant;
 
 public class StopWatch {
 
-    Instant startTime, endTime;
-    Duration duration;
-    boolean isRunning = false;
+    private Instant startTime, endTime;
+    private Duration duration;
+    private boolean isRunning = false;
 
     public void start() {
         if (isRunning)
