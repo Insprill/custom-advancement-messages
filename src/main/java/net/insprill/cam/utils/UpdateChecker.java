@@ -25,7 +25,7 @@ public class UpdateChecker {
             currentVersion = CAM.getInstance().getDescription().getVersion();
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(
-                            new URL("https://api.insprill.net/api-v1/minecraft/spigot/plugins/cam/version/")
+                            new URL("https://api.insprill.net/v1/minecraft/spigot/plugins/cam/version/")
                                     .openConnection()
                                     .getInputStream()))) {
                 newVersion = br.readLine();
