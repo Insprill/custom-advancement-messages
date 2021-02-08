@@ -1,6 +1,6 @@
 name: CAM
 main: net.insprill.cam.CAM
-version: 1.0.4.0-BETA-1
+version: 1.0.4.0
 softdepend:
   - Vault
   - PlaceholderAPI
