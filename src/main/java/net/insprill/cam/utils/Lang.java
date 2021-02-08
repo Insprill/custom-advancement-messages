@@ -9,7 +9,7 @@ public class Lang {
     }
 
     public static String get(String path, String def) {
-        return CAM.getInstance().langFile.getString(path, def);
+        return CAM.getInstance().getLangFile().getString(path, def);
     }
 
 }

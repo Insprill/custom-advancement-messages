@@ -11,10 +11,10 @@ import java.util.List;
 
 public class YamlManager {
 
-    JavaPlugin main;
-    String name;
-    File f;
-    YamlConfiguration cfg;
+    private JavaPlugin main;
+    private String name;
+    private File f;
+    private YamlConfiguration cfg;
 
     public YamlManager(String name) {
         this(null, null, name);

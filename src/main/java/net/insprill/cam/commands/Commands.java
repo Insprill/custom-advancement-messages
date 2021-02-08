@@ -90,10 +90,10 @@ public class Commands implements CommandExecutor {
                 return true;
             }
 
-            if (plugin.advancementsFile.getConfig().contains(CF.formatKey(args[1]))) {
+            if (plugin.getAdvancementsFile().getConfig().contains(CF.formatKey(args[1]))) {
                 String message = StringUtils.join(args, " ", 2, args.length);
-                plugin.advancementsFile.set(CF.formatKey(args[1]), message);
-                plugin.advancementsFile.save();
+                plugin.getAdvancementsFile().set(CF.formatKey(args[1]), message);
+                plugin.getAdvancementsFile().save();
                 CF.sendMessage(sender, "&aAdvancement successfully set!");
             }
             else {
@@ -140,7 +140,7 @@ public class Commands implements CommandExecutor {
         // Revoke
         else if (args[0].equalsIgnoreCase("revoke")) {
             if (!checkPermission(sender, "cam.command.revoke")) return true;
-            if (plugin.dataFile == null) return true;
+            if (plugin.getDataFile() == null) return true;
             if (args.length == 1) {
                 CF.sendMessage(sender, "&cPlease specify a player & an advancement.");
                 return true;
@@ -156,18 +156,18 @@ public class Commands implements CommandExecutor {
             }
             String uuid = op.getUniqueId().toString();
             if (args[2].equalsIgnoreCase("everything")) {
-                plugin.dataFile.set(uuid, null);
+                plugin.getDataFile().set(uuid, null);
             }
             else {
-                List<String> advancements = plugin.dataFile.getStringList(uuid);
+                List<String> advancements = plugin.getDataFile().getStringList(uuid);
                 if (!advancements.contains(args[2])) {
                     CF.sendMessage(sender, "&c" + op.getName() + " does not have that advancement!");
                     return true;
                 }
                 advancements.remove(args[2]);
-                plugin.dataFile.set(uuid, advancements);
+                plugin.getDataFile().set(uuid, advancements);
             }
-            plugin.dataFile.save();
+            plugin.getDataFile().save();
             CF.sendMessage(sender, "&aRemoved " + args[2] + " from " + op.getName() + "!");
         }
 

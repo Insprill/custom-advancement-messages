@@ -98,9 +98,9 @@ public class CF {
         String prefix = "";
         String suffix = "";
         if ((CAM.getInstance().hasVault)
-                && (CAM.getInstance().chat != null)) {
-            prefix = CAM.getInstance().chat.getPlayerPrefix(player);
-            suffix = CAM.getInstance().chat.getPlayerSuffix(player);
+                && (CAM.getInstance().getChat() != null)) {
+            prefix = CAM.getInstance().getChat().getPlayerPrefix(player);
+            suffix = CAM.getInstance().getChat().getPlayerSuffix(player);
         }
         if (player.getCustomName() != null)
             msg = StringUtils.replace(msg, "[playerDisplayName]", player.getCustomName());

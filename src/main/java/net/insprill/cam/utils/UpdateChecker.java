@@ -14,18 +14,18 @@ public class UpdateChecker {
     private static final UpdateChecker instance = new UpdateChecker();
     public String newVersion;
     public String currentVersion;
-    String pluginID = "86618";
+    private final String pluginID = "86618";
 
     public static UpdateChecker getInstance() {
         return instance;
     }
 
     public boolean checkForUpdates() {
-        if (!CAM.getInstance().configFile.getBoolean("DisableUpdateChecker", false)) {
+        if (!CAM.getInstance().getConfigFile().getBoolean("DisableUpdateChecker", false)) {
             currentVersion = CAM.getInstance().getDescription().getVersion();
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(
-                            new URL("https://api.insprill.net/api-v1/minecraft/spigot/plugins/cam/version/")
+                            new URL("https://api.insprill.net/v1/minecraft/spigot/plugins/cam/version/")
                                     .openConnection()
                                     .getInputStream()))) {
                 newVersion = br.readLine();
