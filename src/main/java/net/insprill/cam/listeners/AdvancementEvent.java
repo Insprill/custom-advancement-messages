@@ -44,10 +44,8 @@ public class AdvancementEvent implements Listener {
                     CF.sendConsoleMessage("&4" + gameMode + " &cis not a valid gamemode!");
                     break;
                 }
-                if (player.getGameMode() == gameMode) {
-                    System.out.println("Blacklisted Gamemode");
+                if (player.getGameMode() == gameMode)
                     return;
-                }
             }
 
             Advancement advancement = e.getAdvancement();

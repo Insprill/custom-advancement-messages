@@ -64,6 +64,7 @@ public class CAM extends JavaPlugin {
             Bukkit.getPluginManager().disablePlugin(this);
             return;
         }
+
         if (JvmChecker.getJvmVersion() < 8) {
             CF.sendConsoleMessage("&cCAM is only compatible with Java 8 and up. Please upgrade to Java 8 or better yet, Java 11 to use CAM.");
             Bukkit.getPluginManager().disablePlugin(this);
@@ -164,7 +165,7 @@ public class CAM extends JavaPlugin {
     }
 
     public YamlManager getDataFile() {
-        return advancementsFile;
+        return dataFile;
     }
 
     public void initDataFile() {
