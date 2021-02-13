@@ -23,7 +23,7 @@ public class UpdateChecker {
     public boolean checkForUpdates() {
         if (!CAM.getInstance().getConfigFile().getBoolean("DisableUpdateChecker", false)) {
             currentVersion = CAM.getInstance().getDescription().getVersion();
-            if (currentVersion.contains("BETA"))
+            if (currentVersion.contains("SNAPSHOT"))
                 return false;
             try (BufferedReader br = new BufferedReader(
                     new InputStreamReader(
