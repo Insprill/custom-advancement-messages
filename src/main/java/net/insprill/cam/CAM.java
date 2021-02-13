@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class CAM extends JavaPlugin {
 
     private static CAM instance;
-    private final Metrics metrics = new Metrics(this, 0);
+    private final Metrics metrics = new Metrics(this, 9613);
     private int minecraftVersion = 0;
     private YamlManager advancementsFile;
     private YamlManager langFile;
