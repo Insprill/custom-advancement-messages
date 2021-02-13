@@ -6,7 +6,7 @@
 
     <groupId>net.insprill</groupId>
     <artifactId>CAM</artifactId>
-    <version>1.0.4.1</version>
+    <version>1.0.4.2-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
