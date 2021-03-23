@@ -8,14 +8,14 @@
 
 <!-- PROJECT LOGO -->
 <br />
-<p style="text-align: center;">
+<p align="center">
   <!-- <a href="https://github.com/Insprill/Custom-Advancement-Messages">
      <img src="logo.png" alt="Logo" width="500" height="500">
   </a> -->
 
 <h3 align="center">Custom Advancement Messages</h3>
 
-  <p style="text-align: center;">
+  <p align="center">
     Adds the ability to customize the completion message for every advancement on your server.
     <br />
     <a href="https://github.com/Insprill/Custom-Advancement-Messages"><strong>Explore the docs »</strong></a>
