@@ -39,8 +39,6 @@ public class CAM extends JavaPlugin {
         return instance;
     }
 
-    //TODO CHANGE METRICS ID BEFORE COMPILING
-
     @Override
     public void onEnable() {
 
@@ -59,7 +57,7 @@ public class CAM extends JavaPlugin {
         mcv = mcv.substring(0, mcv.indexOf('R') - 1);
         minecraftVersion = Integer.parseInt(mcv.replace("_", ""));
 
-        if (minecraftVersion < 1_12) {
+        if (getMinecraftVersion() < 1_12) {
             CF.sendConsoleMessage("&cCAM is only compatible with Minecraft 1.12+. Please upgrade to at least 1.12 to use CAM.");
             Bukkit.getPluginManager().disablePlugin(this);
             return;

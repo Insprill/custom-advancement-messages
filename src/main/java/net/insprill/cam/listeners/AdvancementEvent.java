@@ -122,7 +122,7 @@ public class AdvancementEvent implements Listener {
         });
     }
 
-    void sendMessage(Player player, String message) {
+    private void sendMessage(Player player, String message) {
         if (message.contains("{\"text\":"))
             CF.sendJsonMessage(player, message); // If it contains "{\"text\":", it's JSON. send it as so.
         else
