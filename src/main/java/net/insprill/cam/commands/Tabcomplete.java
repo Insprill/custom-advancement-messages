@@ -7,6 +7,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,22 +31,21 @@ public class Tabcomplete implements TabCompleter {
             if (sender.hasPermission("cam.command.set")) {
                 args.add("set");
             }
-            if (CAM.getInstance().getDataFile() != null)
-                if (sender.hasPermission("cam.command.revoke")) {
-                    args.add("revoke");
-                }
+            if (sender.hasPermission("cam.command.revoke") && CAM.getInstance().getDataFile() != null) {
+                args.add("revoke");
+            }
             if (sender.hasPermission("cam.command.version")) {
                 args.add("version");
             }
             if (sender.hasPermission("cam.command.debug")) {
                 args.add("debug");
             }
-            return match(args, commandArgs[0]);
+            return StringUtil.copyPartialMatches(commandArgs[0], new ArrayList<>(), args);
         }
 
-        // Set
-        if (commandArgs[0].equalsIgnoreCase("set")) {
-            if (commandArgs.length == 2) {
+        // At least 1 arg.
+        switch (commandArgs[0].toLowerCase()) {
+            case "set": {
                 if (sender.hasPermission("cam.command.set")) {
                     Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                     while (advancementIterator.hasNext()) {
@@ -53,50 +53,37 @@ public class Tabcomplete implements TabCompleter {
                         args.add(advancement.getKey().toString());
                     }
                 }
+                break;
             }
-            return match(args, commandArgs[1]);
-        }
 
-        // Revoke
-        if (commandArgs[0].equalsIgnoreCase("revoke")) {
-            if (commandArgs.length == 2) {
-                if (sender.hasPermission("cam.command.revoke")) {
-                    if (CAM.getInstance().getDataFile() != null) {
+            case "revoke": {
+                if (sender.hasPermission("cam.command.revoke") && CAM.getInstance().getDataFile() != null) {
+                    if (commandArgs.length == 2) {
                         for (Player player : Bukkit.getOnlinePlayers()) {
-                            args.add((player.getName()));
+                            args.add(player.getName());
                         }
-                    }
-                }
-                return match(args, commandArgs[1]);
-            }
-            if (commandArgs.length == 3) {
-                if (sender.hasPermission("cam.command.revoke")) {
-                    if (CAM.getInstance().getDataFile() != null) {
+                    } else if (commandArgs.length == 3) {
                         args.add("everything");
                         Iterator<Advancement> advancementIterator = Bukkit.getServer().advancementIterator();
                         while (advancementIterator.hasNext()) {
                             Advancement advancement = advancementIterator.next();
                             if (CAM.getInstance().getConfigFile().getBoolean("Store-Completed-Advancements.Only-Custom", true))
-                                if (advancement.getKey().toString().startsWith("minecraft:")) continue;
+                                if (advancement.getKey().toString().startsWith("minecraft:"))
+                                    continue;
                             args.add(advancement.getKey().toString());
                         }
                     }
                 }
-                return match(args, commandArgs[2]);
+                break;
             }
+
         }
 
+        int argToMatch = (commandArgs.length == 0) ? 0 : commandArgs.length - 1;
+        StringUtil.copyPartialMatches(commandArgs[argToMatch], args, new ArrayList<>());
+        Collections.sort(args);
 
-        return Collections.emptyList();
-    }
-
-    List<String> match(List<String> Args, String arg) {
-        List<String> finalOne = new ArrayList<>();
-        for (String s : Args) {
-            if (!s.toLowerCase().startsWith(arg.toLowerCase())) continue;
-            finalOne.add(s);
-        }
-        return finalOne;
+        return args;
     }
 
 }
