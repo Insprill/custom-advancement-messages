@@ -25,15 +25,15 @@ public final class JvmChecker {
     }
 
     public static void checkJvm() {
-        if (getJvmVersion() < 11) {
+        if (getJvmVersion() < 16) {
             CF.sendConsoleMessage("&e************************************************************");
             CF.sendConsoleMessage("&e* WARNING - YOU ARE RUNNING AN OUTDATED VERSION OF JAVA.");
-            CF.sendConsoleMessage("&e* Please update the version of Java you use to at least Java 11.");
+            CF.sendConsoleMessage("&e* Please update the version of Java you use to at least Java 16.");
             CF.sendConsoleMessage("&e*");
             CF.sendConsoleMessage("&e* Current Java version: " + System.getProperty("java.version"));
             CF.sendConsoleMessage("&e*");
             CF.sendConsoleMessage("&e* Check this forum post from PaperMC for more information: ");
-            CF.sendConsoleMessage("&e*   https://papermc.io/java11");
+            CF.sendConsoleMessage("&e*   https://papermc.io/java16");
             CF.sendConsoleMessage("&e************************************************************");
         }
     }
