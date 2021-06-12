@@ -1,9 +1,11 @@
 name: CAM
 main: net.insprill.cam.CAM
-version: 1.0.4.1
+version: ${project.version}
+api-version: 1.13
 softdepend:
   - Vault
   - PlaceholderAPI
+
 commands:
   cam:
     aliases: [ customadvancementmessages ]
@@ -14,11 +16,7 @@ permissions:
   cam.*:
     description: Gives access to all CAM commands
     children:
-      cam.command.help: true
-      cam.command.version: true
-      cam.command.debug: true
-      cam.command.revoke: true
-      cam.command.reload: true
+      cam.command.*: true
   cam.command.*:
     description: Gives access to all CAM commands
     children:

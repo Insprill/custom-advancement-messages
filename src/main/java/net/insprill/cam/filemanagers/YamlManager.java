@@ -2,7 +2,6 @@ package net.insprill.cam.filemanagers;
 
 import com.google.common.base.Charsets;
 import net.insprill.cam.CAM;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -28,52 +27,62 @@ public class YamlManager {
         this.name = name.endsWith(".yml") ? name : name + ".yml";
         this.main = main;
         f = new File(dir, this.name);
-        if (!f.exists()) loadFile();
+        if (!f.exists()) initFile();
         if (f.exists()) reload();
     }
 
 
-    private void loadFile() {
-        if (!f.exists()) {
-            try {
-                if (main != null) {
-                    if (main.getResource(f.getName()) != null) {
-                        printToFile(main.getResource(f.getName()), f);
-                    }
-                    else {
-                        f.createNewFile();
-                    }
-                }
-                else {
-                    f.createNewFile();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                Bukkit.broadcast("Error occurred when making config: " + name, "config.errors");
+    /**
+     * Copies over all data from the default file stored in the jar, to the actual file in the plugins data folder.
+     */
+    private void initFile() {
+        try {
+            if (main.getResource(f.getName()) != null) {
+                printToFile(main.getResource(f.getName()), f);
+            } else {
+                f.createNewFile();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Reloads the configuration file from disk.
+     */
     public void reload() {
         if (!f.exists())
-            loadFile();
+            initFile();
         cfg = YamlConfiguration.loadConfiguration(f);
-        InputStream defConfigStream = main.getResource(f.getName());
-        if (defConfigStream != null) {
-            cfg.setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(defConfigStream, Charsets.UTF_8)));
+        try (InputStream defConfigStream = main.getResource(f.getName())) {
+            if (defConfigStream == null) return;
+            try (InputStreamReader inputStreamReader = new InputStreamReader(defConfigStream, Charsets.UTF_8)) {
+                cfg.setDefaults(YamlConfiguration.loadConfiguration(inputStreamReader));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    /**
+     * Saves the configuration file to disk.
+     */
     public void save() {
         try {
             cfg.save(f);
             reload();
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
 
+    /**
+     * Writes data from an InputStream to a file.
+     *
+     * @param is      InputStream to get data from.
+     * @param toPrint File to write data to.
+     */
     private void printToFile(InputStream is, File toPrint) {
         try (FileOutputStream outputStream = new FileOutputStream(toPrint)) {
             int i;
@@ -87,6 +96,10 @@ public class YamlManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public YamlConfiguration getConfig() {
+        return cfg;
     }
 
     public int getInt(String path, int def) {
@@ -109,12 +122,8 @@ public class YamlManager {
         return cfg.getStringList(path);
     }
 
-    public YamlConfiguration getConfig() {
-        return cfg;
-    }
-
     public void set(String path, Object value) {
-        getConfig().set(path, value);
+        cfg.set(path, value);
     }
 
 }

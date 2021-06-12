@@ -30,6 +30,8 @@ public class AdvancementEvent implements Listener {
     public void onAdvancement(PlayerAdvancementDoneEvent e) {
         plugin.getAdvancementProcessor().execute(() -> {
             Player player = e.getPlayer(); // Looks prettier then e.getPlayer() a bunch of times.
+
+            // Check if player is in a disabled world.
             for (String worldName : plugin.getConfigFile().getStringList("Disabled-Worlds")) {
                 if ((worldName.startsWith("[regex]")) &&
                         (player.getWorld().getName().matches(worldName.replace("[regex]", ""))))
@@ -38,6 +40,7 @@ public class AdvancementEvent implements Listener {
                     return;
             }
 
+            // Check if player is in a disabled gamemode.
             for (String gameModeString : plugin.getConfigFile().getStringList("Disabled-Gamemodes")) {
                 GameMode gameMode = GameMode.valueOf(gameModeString.toUpperCase());
                 if (gameMode == null) {
@@ -50,6 +53,7 @@ public class AdvancementEvent implements Listener {
 
             Advancement advancement = e.getAdvancement();
             String advKey = advancement.getKey().toString();
+
             if (advKey.contains("root") || advKey.contains("recipes"))
                 return; // Return if the advancements key contains 'root' or 'recipes'.
             if (plugin.getConfigFile().getStringList("Disabled-Advancements").contains(advKey))
@@ -64,12 +68,13 @@ public class AdvancementEvent implements Listener {
                 }
             }
 
-            String uuid = player.getUniqueId().toString();
+            // If store completed advancements is enabled.
             if (plugin.getConfigFile().getBoolean("Store-Completed-Advancements.Enabled", true)) {
                 if (plugin.getDataFile() == null)
                     plugin.initDataFile();
                 if (!plugin.getConfigFile().getBoolean("Store-Completed-Advancements.Only-Custom", true)
-                        || !advKey.startsWith("minecraft:")) {// If SCA is enabled and only custom is true, break out of this.
+                        || !advKey.startsWith("minecraft:")) { // If SCA is enabled and only custom is true, break out of this.
+                    String uuid = player.getUniqueId().toString();
                     List<String> advancements = plugin.getDataFile().getStringList(uuid);
                     if (advancements.contains(advKey)) // If the player got this advancement already, return.
                         return;
@@ -117,7 +122,7 @@ public class AdvancementEvent implements Listener {
         });
     }
 
-    void sendMessage(Player player, String message) {
+    private void sendMessage(Player player, String message) {
         if (message.contains("{\"text\":"))
             CF.sendJsonMessage(player, message); // If it contains "{\"text\":", it's JSON. send it as so.
         else
