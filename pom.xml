@@ -6,7 +6,7 @@
 
     <groupId>net.insprill</groupId>
     <artifactId>CAM</artifactId>
-    <version>1.0.4.2-SNAPSHOT</version>
+    <version>1.0.4.2</version>
     <packaging>jar</packaging>
 
     <name>CAM</name>
