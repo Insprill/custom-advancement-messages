@@ -1,6 +1,7 @@
 name: CAM
 main: net.insprill.cam.CAM
 version: ${project.version}
+author: Insprill
 api-version: 1.13
 softdepend:
   - Vault
