@@ -17,9 +17,6 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Iterator;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class CAM extends JavaPlugin {
 
@@ -33,7 +30,6 @@ public class CAM extends JavaPlugin {
     private Chat chat = null;
     public boolean hasVault = false;
     public boolean hasPapi = false;
-    private ExecutorService advancementProcessor;
 
     public static CAM getInstance() {
         return instance;
@@ -85,8 +81,6 @@ public class CAM extends JavaPlugin {
         initializeAdvancementsTimer.stop();
         CF.sendConsoleMessage("&3Initialized advancements! &6" + initializeAdvancementsTimer.getElapsedTime().toMillis() + "ms");
 
-        advancementProcessor = Executors.newSingleThreadExecutor();
-
         new AdvancementEvent(this);
         new Commands(this);
         startingPluginTimer.stop();
@@ -98,17 +92,6 @@ public class CAM extends JavaPlugin {
         metrics.addCustomChart(new Metrics.SimplePie("radius_messages", () -> radius_messages));
     }
 
-    @Override
-    public void onDisable() {
-        advancementProcessor.shutdown();
-        try {
-            if (!advancementProcessor.awaitTermination(5, TimeUnit.SECONDS))
-                advancementProcessor.shutdownNow();
-        } catch (InterruptedException ie) {
-            advancementProcessor.shutdownNow();
-        }
-    }
-
     private void setupChat() {
         RegisteredServiceProvider<Chat> chatProvider = getServer().getServicesManager().getRegistration(Chat.class);
         if (chatProvider != null)
@@ -116,7 +99,7 @@ public class CAM extends JavaPlugin {
     }
 
     @SuppressWarnings("deprecation")
-    void initializeAdvancements() {
+    private void initializeAdvancements() {
         for (World world : getServer().getWorlds()) {
             if (Bukkit.getVersion().contains("1.12"))
                 world.setGameRuleValue("ANNOUNCE_ADVANCEMENTS", "false");
@@ -168,10 +151,6 @@ public class CAM extends JavaPlugin {
 
     public void initDataFile() {
         dataFile = new YamlManager("data.yml");
-    }
-
-    public ExecutorService getAdvancementProcessor() {
-        return advancementProcessor;
     }
 
     public Chat getChat() {
