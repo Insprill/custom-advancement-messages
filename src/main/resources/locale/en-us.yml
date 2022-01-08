@@ -1,0 +1,20 @@
+prefix: "&8[&2CAM&8]"
+commands:
+  unknown-command: "%p% &cUnknown command! Type \"/cam help\" for help."
+  no-permission: "%p% &cYou don't have permission to use this command!"
+  player-only: "%p% &cThat command can only be run by a player!"
+  no-advancement: "%p% &cPlease specify an advancement."
+  revoke:
+    player-not-found: "%p% &cThat player couldn't be found!"
+    doesnt-have: "%p% &c%player% does not have that advancement!"
+    success: "%p% Removed %adv% from %player%!"
+  set:
+    advancement-not-found: "%p% &aCould not find that advancement in the file! Please run \"/cam reload\" to add any missing advancements."
+    no-message: "%p% &cPlease specify a message."
+    success: "%p% &aAdvancement successfully set!"
+  reload:
+    success: "%p% &aAll configuration files have been reloaded."
+    no-player: "%p% &cPlease specify a player!"
+  plinfo:
+    success: "%p% &a%link%"
+    fail: "%p% &cFailed to create paste! Error: %error%"

@@ -1,5 +1,0 @@
-Prefix: "&8[&2CAM&8] "
-No-Permission: "&cYou don't have permission to use this command!"
-Player-Not-Found: "&cThat player couldn't be found!"
-Advancement-Not-Found: "&aCould not find that advancement in the file! Please run \"/cam reload\" to add any missing advancements."
-Unknown-Command: "&cUnknown command! Type \"/cam help\" for help."

@@ -1,7 +1,7 @@
 plugins {
     id 'java'
-    id "io.freefair.lombok" version "6.2.0"
-    id 'com.github.johnrengelman.shadow' version '7.1.0'
+    id "io.freefair.lombok" version "6.3.0"
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group 'net.insprill'
@@ -12,17 +12,23 @@ repositories {
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
     maven { url = 'https://jitpack.io' }
     maven { url = 'https://repo.extendedclip.com/content/repositories/placeholderapi/' }
+    mavenLocal()
 }
 
 dependencies {
     compileOnly 'me.clip:placeholderapi:2.10.10'
-	compileOnly 'org.jetbrains:annotations:23.0.0'
+    compileOnly 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.18.1-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7') { transitive = false }
+    implementation 'net.insprill:xenlib:d20105a17c'
+    implementation 'org.bstats:bstats-bukkit:2.2.1'
 }
 
 shadowJar {
     archiveClassifier.set('')
+
+    relocate("net.insprill.xenlib", "net.insprill.cam.libs.net.insprill.xenlib")
+    relocate("org.bstats", "net.insprill.cam.libs.org.bstats")
 
     minimize()
 }
@@ -36,13 +42,10 @@ processResources {
     }
 }
 
-def targetJavaVersion = 8
+def targetJavaVersion = 17
 java {
     compileJava.options.encoding = 'UTF-8'
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
     targetCompatibility = javaVersion
-    if (JavaVersion.current() < javaVersion) {
-        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    }
 }
