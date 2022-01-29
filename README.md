@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GNU License][license-shield]][license-url]
-
+[![Discord][discord-shield]][discord-url]
 
 
 <!-- PROJECT LOGO -->
@@ -95,9 +95,9 @@ contributions you make are **greatly appreciated**.
 1. Install [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
 2. Go to `File` -> `New` -> `Project from Version Control` and enter this
    URL: `https://github.com/Insprill/Custom-Advancement-Messages.git`.
-3. Go to `View` -> `Tool Windows` -> `Maven`. Then click the dropdown next to `CAM`, then the one next to `Lifecycle`.
-4. Double click `package` and wait for it to finish.
-5. The freshly compiled jar will be under the target folder in the project directory.
+3. Go to `View` -> `Tool Windows` -> `Gradle`. Then click the dropdown next to `Custom-Advancement-Messages`, then the one next to `Tasks`, and `shadow`.
+4. Double click `shadowJar` and wait for it to finish.
+5. The freshly compiled jar will be in the `build/libs` folder.
 
 <!-- LICENSE -->
 
@@ -114,25 +114,9 @@ See [LICENSE](https://github.com/Insprill/Custom-Advancement-Messages/blob/maste
 
 ## Support
 
-For support, please join the [Discord Server](https://discord.gg/ZW4dvfr). Once you join, go to the `create-a-ticket`
-channel and react to the message with 📩. Once you do that, a ticket will be created. You can then ask your question and
-someone will get back to you.
+For support, please join the [Discord Server](https://discord.gg/ZW4dvfr). Once you join, go to the `community-support`
+channel then ask your question and someone will get back to you.  
 **Do not ask questions via the issue tracker.**
-
-
-
-
-
-<!-- CONTACT -->
-
-## Contact
-
-[@Twitter](https://twitter.com/InsprillO_O)  
-[@SpigotMC](https://www.spigotmc.org/members/724062/)  
-Discord: `Insprill#6969`
-
-Project
-Link: [https://github.com/Insprill/Custom-Advancement-Messages](https://github.com/Insprill/Custom-Advancement-Messages)
 
 
 
@@ -142,21 +126,14 @@ Link: [https://github.com/Insprill/Custom-Advancement-Messages](https://github.c
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-
 [contributors-url]: https://github.com/Insprill/Custom-Advancement-Messages/graphs/contributors
-
 [forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-
 [forks-url]: https://github.com/Insprill/Custom-Advancement-Messages/network/members
-
 [stars-shield]: https://img.shields.io/github/stars/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-
 [stars-url]: https://github.com/Insprill/Custom-Advancement-Messages/stargazers
-
 [issues-shield]: https://img.shields.io/github/issues/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-
 [issues-url]: https://github.com/Insprill/Custom-Advancement-Messages/issues
-
 [license-shield]: https://img.shields.io/github/license/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-
 [license-url]: https://github.com/Insprill/Custom-Advancement-Messages/blob/master/LICENSE.txt
+[discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
+[discord-url]: https://discord.gg/SH7VyYtuC2
