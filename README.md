@@ -30,6 +30,7 @@
 
 
 
+
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
@@ -55,13 +56,6 @@ It supports sending JSON messages, HEX color codes, and also has full support fo
 suffixes!
 
 
-<!-- GETTING STARTED
-## Getting Started -->
-
-<!-- To get a local copy up and running follow these simple steps. -->
-
-
-
 
 
 <!-- ROADMAP -->
@@ -71,6 +65,17 @@ suffixes!
 See the [open issues](https://github.com/Insprill/Custom-Advancement-Messages/issues) for a list of proposed features (
 and known issues).
 
+
+
+
+<!-- DOWNLOAD -->
+
+## Download
+### Releases
+Releases of CAM can be downloaded from SpigotMC [here](https://www.spigotmc.org/resources/86618/).
+
+### Snapshots
+Snapshot builds can be downloaded via GitHub Actions [here](https://github.com/Insprill/Custom-Advancement-Messages/actions/workflows/gradle.yml).
 
 
 
@@ -88,6 +93,9 @@ contributions you make are **greatly appreciated**.
 4. Push to the Branch (`git push origin feature/AwesomeFeature`)
 5. Open a Pull Request
 
+
+
+
 <!-- BUILDING -->
 
 ## Building
@@ -99,13 +107,15 @@ contributions you make are **greatly appreciated**.
 4. Double click `shadowJar` and wait for it to finish.
 5. The freshly compiled jar will be in the `build/libs` folder.
 
+
+
+
 <!-- LICENSE -->
 
 ## License
 
 Distributed under the GNU General Public License v3.0.  
 See [LICENSE](https://github.com/Insprill/Custom-Advancement-Messages/blob/master/LICENSE) for more information.
-
 
 
 
@@ -117,7 +127,6 @@ See [LICENSE](https://github.com/Insprill/Custom-Advancement-Messages/blob/maste
 For support, please join the [Discord Server](https://discord.gg/ZW4dvfr). Once you join, go to the `community-support`
 channel then ask your question and someone will get back to you.  
 **Do not ask questions via the issue tracker.**
-
 
 
 
