@@ -1,4 +1,5 @@
 1.0.4.3:
-- Updated to Java 17. Java 17 is now required to use CAM.
-- Dropped support for 1.12.
 - Added better localization support.
+- Added support for multi-line messages split with \n.
+- Updated to Java 17. Java 17 is now required.
+- Removed support for 1.12.x. 1.13+ is now required.
