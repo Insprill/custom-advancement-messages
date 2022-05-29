@@ -123,7 +123,10 @@ public class AdvancementEvent implements Listener {
 		if (message.contains("{\"text\":")) {
 			Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:tellraw " + player.getName() + " " + message); // If it contains "{\"text\":", it's JSON. send it as so.
 		} else {
-			player.sendMessage(message); // Not JSON. just format & send the message.
+			// Not JSON. just format & send the message.
+			for (String s : message.split("\\\\n")) {
+				player.sendMessage(s);
+			}
 		}
 	}
 
