@@ -4,8 +4,7 @@ import net.insprill.cam.CAM;
 import net.insprill.cam.handlers.AdvancementHandler;
 import net.insprill.cam.utils.CF;
 import net.insprill.cam.utils.files.YamlFile;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.WordUtils;
+import org.apache.commons.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.advancement.Advancement;
@@ -87,8 +86,8 @@ public class AdvancementEvent implements Listener {
 		if (message.equals("none")) return; // Return if the message is set to 'none'.
 
 		if (message.contains("-{{") && message.endsWith("}}")) { // Check if string contains custom name.
-			advName = message.substring(StringUtils.indexOf(message, "-{{") + 3, StringUtils.lastIndexOf(message, "}}")); // Create substring, getting just the custom name.
-			message = message.substring(0, StringUtils.indexOf(message, "-{{")); // Don't include custom name section is actual message.
+			advName = message.substring(message.indexOf("-{{") + 3, message.lastIndexOf("}}")); // Create substring, getting just the custom name.
+			message = message.substring(0, message.indexOf("-{{")); // Don't include custom name section is actual message.
 		}
 
 		if (message.startsWith("custom.")) // If we should use a custom 'default'
@@ -99,7 +98,7 @@ public class AdvancementEvent implements Listener {
 		if (advName == null) { // If no custom name is specified.
 			advName = advKey; // Advancement name from key.
 			advName = advName.substring(advName.lastIndexOf('/') + 1); // Get the lowest key. That's the advancements name
-			advName = StringUtils.replace(advName, "_", " "); // Replace the '_' in the name with a space.
+			advName = advName.replace("_", " "); // Replace the '_' in the name with a space.
 			advName = WordUtils.capitalizeFully(advName); // Capitalize the first letter in each work and make all others lowercase.
 		}
 

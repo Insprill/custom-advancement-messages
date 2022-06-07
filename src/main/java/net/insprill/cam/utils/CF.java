@@ -2,7 +2,6 @@ package net.insprill.cam.utils;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.chat.Chat;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.entity.Player;
 
 public class CF {
@@ -23,16 +22,16 @@ public class CF {
 			suffix = ((Chat) Dependency.VAULT.getClazz()).getPlayerSuffix(player);
 		}
 		if (player.getCustomName() != null) {
-			msg = StringUtils.replace(msg, "[playerDisplayName]", player.getCustomName());
+			msg = msg.replace("[playerDisplayName]", player.getCustomName());
 		} else {
-			msg = StringUtils.replace(msg, "[playerDisplayName]", player.getDisplayName());
+			msg = msg.replace("[playerDisplayName]", player.getDisplayName());
 		}
 
-		msg = StringUtils.replace(msg, "[playerName]", player.getName());
-		msg = StringUtils.replace(msg, "[prefix]", prefix);
-		msg = StringUtils.replace(msg, "[suffix]", suffix);
+		msg = msg.replace("[playerName]", player.getName());
+		msg = msg.replace("[prefix]", prefix);
+		msg = msg.replace("[suffix]", suffix);
 		if (adv != null) {
-			msg = StringUtils.replace(msg, "[adv]", adv);
+			msg = msg.replace("[adv]", adv);
 		}
 
 		if (Dependency.PAPI.isEnabled()) {

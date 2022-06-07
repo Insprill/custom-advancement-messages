@@ -4,7 +4,6 @@ import net.insprill.cam.handlers.AdvancementHandler;
 import net.insprill.cam.utils.files.YamlFile;
 import net.insprill.xenlib.commands.ICommandArgument;
 import net.insprill.xenlib.localization.Lang;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.command.CommandSender;
@@ -12,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class CamArgSet implements ICommandArgument {
 		}
 
 		if (YamlFile.ADV_MESSAGES.contains(AdvancementHandler.formatKey(args[1]))) {
-			String message = StringUtils.join(args, " ", 2, args.length);
+			String message = String.join(" ", Arrays.copyOfRange(args, 2, args.length));
 			YamlFile.ADV_MESSAGES.set(AdvancementHandler.formatKey(args[1]), message);
 			YamlFile.ADV_MESSAGES.save();
 			Lang.send(sender, "commands.set.success");

@@ -2,7 +2,6 @@ package net.insprill.cam.handlers;
 
 import lombok.Getter;
 import net.insprill.cam.utils.files.YamlFile;
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Keyed;
@@ -66,8 +65,8 @@ public class AdvancementHandler implements Listener {
 	 */
 	public static String formatKey(String key) {
 		if (key == null) return "none";
-		key = StringUtils.replace(key, "/", ".");
-		key = StringUtils.replace(key, ":", ".");
+		key = key.replace("/", ".");
+		key = key.replace(":", ".");
 		return key;
 	}
 
