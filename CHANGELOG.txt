@@ -1,4 +1,5 @@
 1.0.4.3:
+- Added support for 1.19.
 - Added better localization support.
 - Added support for multi-line messages split with \n.
 - Updated to Java 17. Java 17 is now required.
