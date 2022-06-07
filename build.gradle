@@ -21,11 +21,11 @@ repositories {
 
 dependencies {
     compileOnly 'me.clip:placeholderapi:2.11.1'
-    compileOnly 'org.apache.commons:commons-text:1.9'
     compileOnly 'org.jetbrains:annotations:23.0.0'
     compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
     compileOnly('com.github.MilkBowl:VaultAPI:1.7.1') { transitive = false }
     implementation 'net.insprill:xenlib:8983a49a4b'
+    implementation 'org.apache.commons:commons-text:1.9'
     implementation 'org.bstats:bstats-bukkit:3.0.0'
 }
 
@@ -34,10 +34,12 @@ shadowJar {
 
     var libPackage = "net.insprill.cam.libs"
     relocate("net.insprill.xenlib", "${libPackage}.net.insprill.xenlib")
+    relocate("org.apache.commons.text", "${libPackage}.org.apache.commons.text")
     relocate("org.bstats", "${libPackage}.org.bstats")
 
     minimize()
 }
+build.dependsOn(shadowJar)
 
 processResources {
     def props = [version: version]
