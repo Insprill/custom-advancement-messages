@@ -33,6 +33,7 @@ public class CamArgRevoke implements ICommandArgument {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public void process(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
 		if (args.length == 1) {
 			Lang.send(sender, "commands.revoke.no-player");
