@@ -4,5 +4,6 @@
   ],
   "baseBranches": [
     "develop"
-  ]
+  ],
+  "dependencyDashboard": false
 }
