@@ -1,47 +1,49 @@
+[![bStats Servers][bstats-servers-shield]][bstats-servers-url]
+[![Rating][spigot-rating-shield]][spigot-url]
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GNU License][license-shield]][license-url]
+[![GPLv3 License][license-shield]][license-url]
 [![Discord][discord-shield]][discord-url]
+
+
 
 
 <!-- PROJECT LOGO -->
 <br />
-<p align="center">
-  <!-- <a href="https://github.com/Insprill/Custom-Advancement-Messages">
-     <img src="logo.png" alt="Logo" width="500" height="500">
-  </a> -->
-
-<h3 align="center">Custom Advancement Messages</h3>
-
-  <p align="center">
+<div align="center">
+  <h1>Custom Advancement Messages</h1>
+  <p>
     Adds the ability to customize the completion message for every advancement on your server.
     <br />
-    <a href="https://github.com/Insprill/Custom-Advancement-Messages"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Demo</a>
-    ·
     <a href="https://github.com/Insprill/Custom-Advancement-Messages/issues">Report Bug</a>
     ·
     <a href="https://github.com/Insprill/Custom-Advancement-Messages/issues">Request Feature</a>
   </p>
+</div>
 
 
 
 
 <!-- TABLE OF CONTENTS -->
-
-## Table of Contents
-
-* [About The Project](#about-the-project)
-* [Roadmap](#roadmap)
-* [Contributing]("#contributing")
-* [Building]("#building")
-* [License]("#license")
-* [Support]("#support")
-* [Contact]("#contact")
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li>
+      <a href="#download">Download</a>
+      <ul>
+        <li><a href="#releases">Releases</a></li>
+        <li><a href="#snapshots">Snapshots</a></li>
+      </ul>
+    </li>
+    <li><a href="#building">Building</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
 
 
@@ -58,6 +60,17 @@ suffixes!
 
 
 
+<!-- DOWNLOAD -->
+## Download
+### Releases
+Releases of CAM can be downloaded from SpigotMC [here][spigot-url].
+
+### Snapshots
+Snapshot builds from each commit can be downloaded via GitHub Actions [here](https://nightly.link/Insprill/custom-advancement-messages/workflows/gradle/master).
+
+
+
+
 <!-- ROADMAP -->
 
 ## Roadmap
@@ -68,30 +81,13 @@ and known issues).
 
 
 
-<!-- DOWNLOAD -->
-
-## Download
-### Releases
-Releases of CAM can be downloaded from SpigotMC [here](https://www.spigotmc.org/resources/86618/).
-
-### Snapshots
-Snapshot builds can be downloaded via GitHub Actions [here](https://github.com/Insprill/Custom-Advancement-Messages/actions/workflows/gradle.yml).
-
-
-
-
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any
-contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AwesomeFeature`)
-3. Commit your Changes (`git commit -m 'Add some AwesomeFeature'`)
-4. Push to the Branch (`git push origin feature/AwesomeFeature`)
-5. Open a Pull Request
+Contributions are what make the open source community such an amazing place to learn, inspire, and create.  
+Any contributions you make are **greatly appreciated**!  
+If you're new to contributing to open-source projects, you can follow [this](https://docs.github.com/en/get-started/quickstart/contributing-to-projects) guide.
 
 
 
@@ -100,12 +96,9 @@ contributions you make are **greatly appreciated**.
 
 ## Building
 
-1. Install [IntelliJ Community Edition](https://www.jetbrains.com/idea/download/).
-2. Go to `File` -> `New` -> `Project from Version Control` and enter this
-   URL: `https://github.com/Insprill/Custom-Advancement-Messages.git`.
-3. Go to `View` -> `Tool Windows` -> `Gradle`. Then click the dropdown next to `Custom-Advancement-Messages`, then the one next to `Tasks`, and `shadow`.
-4. Double click `shadowJar` and wait for it to finish.
-5. The freshly compiled jar will be in the `build/libs` folder.
+To compile CAM, you will need an internet connection and a terminal.  
+Clone this repo, then run `mvn package`.  
+You can find the compiled jar in the `target` directory.
 
 
 
@@ -124,8 +117,9 @@ See [LICENSE](https://github.com/Insprill/Custom-Advancement-Messages/blob/maste
 
 ## Support
 
-For support, please join the [Discord Server](https://discord.gg/ZW4dvfr). Once you join, go to the `community-support`
-channel then ask your question and someone will get back to you.  
+For support, please join my [Discord Server][discord-url].  
+Once you join, you can ask your question in the `#community-support` channel.  
+Note that this is all done in my free time and support is *not* guaranteed.  
 **Do not ask questions via the issue tracker.**
 
 
@@ -133,16 +127,19 @@ channel then ask your question and someone will get back to you.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-[contributors-url]: https://github.com/Insprill/Custom-Advancement-Messages/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-[forks-url]: https://github.com/Insprill/Custom-Advancement-Messages/network/members
-[stars-shield]: https://img.shields.io/github/stars/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-[stars-url]: https://github.com/Insprill/Custom-Advancement-Messages/stargazers
-[issues-shield]: https://img.shields.io/github/issues/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-[issues-url]: https://github.com/Insprill/Custom-Advancement-Messages/issues
-[license-shield]: https://img.shields.io/github/license/Insprill/Custom-Advancement-Messages.svg?style=for-the-badge
-[license-url]: https://github.com/Insprill/Custom-Advancement-Messages/blob/master/LICENSE.txt
+[bstats-servers-shield]: https://img.shields.io/bstats/servers/9613.svg?style=for-the-badge
+[bstats-servers-url]: https://bstats.org/plugin/bukkit/Custom%20Advancement%20Messages/9613
+[spigot-rating-shield]: https://img.shields.io/spiget/rating/86618.svg?style=for-the-badge
+[spigot-url]: https://www.spigotmc.org/resources/86618
+[contributors-shield]: https://img.shields.io/github/contributors/Insprill/custom-advancement-messages.svg?style=for-the-badge
+[contributors-url]: https://github.com/Insprill/custom-advancement-messages/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/Insprill/custom-advancement-messages.svg?style=for-the-badge
+[forks-url]: https://github.com/Insprill/custom-advancement-messages/network/members
+[stars-shield]: https://img.shields.io/github/stars/Insprill/custom-advancement-messages.svg?style=for-the-badge
+[stars-url]: https://github.com/Insprill/custom-advancement-messages/stargazers
+[issues-shield]: https://img.shields.io/github/issues/Insprill/custom-advancement-messages.svg?style=for-the-badge
+[issues-url]: https://github.com/Insprill/custom-advancement-messages/issues
+[license-shield]: https://img.shields.io/github/license/Insprill/custom-advancement-messages.svg?style=for-the-badge
+[license-url]: https://github.com/Insprill/custom-advancement-messages/blob/master/LICENSE
 [discord-shield]: https://img.shields.io/discord/626995215558901771?color=%235663F7&label=Discord&style=for-the-badge
 [discord-url]: https://discord.gg/SH7VyYtuC2
