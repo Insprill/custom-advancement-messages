@@ -6,19 +6,16 @@
 
 
 
+
 <!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <!-- <a href="https://github.com/Insprill/Custom-Advancement-Messages">
-     <img src="logo.png" alt="Logo" width="500" height="500">
-  </a> -->
-
-<h3 align="center">Custom Advancement Messages</h3>
-
+<div align="center">
+  <h1 align="center">Custom Advancement Messages</h1>
   <p align="center">
+    <h3>⚠️ Warning ⚠️</h3>
+    <h5>
+      Custom Advancement Messages is no longer supported! An updated version of the project that's been converted to Gradle can be found on the develop branch.
+    </h5>
     Adds the ability to customize the completion message for every advancement on your server.
-    <br />
-    <a href="https://github.com/Insprill/Custom-Advancement-Messages"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">View Demo</a>
@@ -27,6 +24,8 @@
     ·
     <a href="https://github.com/Insprill/Custom-Advancement-Messages/issues">Request Feature</a>
   </p>
+</div>
+
 
 
 
